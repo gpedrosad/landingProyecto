@@ -4,7 +4,9 @@ import DiagnosticoForm from "@/components/DiagnosticoForm";
 import { SymptomsSection } from "@/components/SymptomsSection"
 import { StepsSection } from "@/components/StepsSection"
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee"
-
+import { AvatarRecommenders } from "@/components/AvatarRecommenders"
+import { NumberTicker } from "@/components/NumberTicker"
+import { FAQSection } from "@/components/FAQSection"
 
 export default function Home() {
   return (
@@ -16,7 +18,10 @@ export default function Home() {
       <DiagnosticoForm />
       <SymptomsSection />
       <StepsSection />
+      <AvatarRecommenders />
       <TestimonialsMarquee />
+      <NumberTicker target={4733} label="Consultas realizadas" />
+      <FAQSection />
     </div>  
   );
 }
