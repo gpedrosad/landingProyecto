@@ -58,6 +58,13 @@ export default function TaskList() {
     )
   }
 
+  // Borra una tarea específica
+  const handleDelete = (id: string) => {
+    setTasks(prev => prev.filter(t => t.id !== id))
+    setCompletedIds(prev => prev.filter(x => x !== id))
+    setOrder(prev => prev.filter(x => x !== id))
+  }
+
   // Manejadores DnD
   const sensors = useSensors(useSensor(PointerSensor))
   const handleDragEnd = ({ active, over }: any) => {
@@ -125,6 +132,7 @@ export default function TaskList() {
                   tarea={task}
                   completadas={completedIds}
                   toggleTarea={toggleTask}
+                  onDelete={handleDelete}  // Pasamos el callback
                 />
               ))}
             </ul>

@@ -10,14 +10,20 @@ interface SortableItemProps {
   tarea: Task
   completadas: string[]
   toggleTarea: (id: string) => void
+  onDelete: (id: string) => void   // Callback para borrar
 }
 
-export default function SortableItem({ tarea, completadas, toggleTarea }: SortableItemProps) {
+export default function SortableItem({
+  tarea,
+  completadas,
+  toggleTarea,
+  onDelete,
+}: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: tarea.id })
   const style = { transform: CSS.Transform.toString(transform), transition }
   const completed = completadas.includes(tarea.id)
 
-  // --- Empieza la lógica de subtareas con IA ---
+  // --- Lógica de subtareas con IA ---
   const [subtasks, setSubtasks] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
 
@@ -27,9 +33,14 @@ export default function SortableItem({ tarea, completadas, toggleTarea }: Sortab
       const res = await fetch('/api/breakdown-task', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: tarea.titulo })
+        body: JSON.stringify({ title: tarea.titulo }),
       })
-      const { subtasks: list } = await res.json()
+      const data = await res.json()
+      const list: string[] = Array.isArray(data.subtasks)
+        ? data.subtasks
+        : Array.isArray((data.subtasks as any).preguntas)
+          ? (data.subtasks as any).preguntas
+          : []
       setSubtasks(list)
     } catch {
       setSubtasks(['Error generando subtareas'])
@@ -37,38 +48,58 @@ export default function SortableItem({ tarea, completadas, toggleTarea }: Sortab
       setLoading(false)
     }
   }
-  // --- Fin de la lógica IA ---
+  // --- Fin lógica IA ---
 
   return (
     <li
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
-      className={`flex flex-col p-3 rounded-xl shadow-md cursor-pointer select-none ${
+      className={`flex flex-col p-3 rounded-xl shadow-md select-none relative ${
         completed ? 'bg-green-100 line-through text-gray-500' : 'bg-white'
       }`}
       title="Doble click para marcar/completar"
       onDoubleClick={() => toggleTarea(tarea.id)}
     >
-      <div className="flex items-center justify-between">
+      {/* Icono X para borrar */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onDelete(tarea.id) }}
+        className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
+        title="Borrar tarea"
+      >
+        ×
+      </button>
+
+      {/* Content area: draggable */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="flex items-center justify-between cursor-grab"
+      >
         <div>
           <span className="font-medium">{tarea.titulo}</span>
           <div className="text-sm text-gray-500">
             {tarea.categoria === 'productivo' ? '🟠 Productivo' : '🟡 Por tiempo'} · {tarea.duracion} min
           </div>
         </div>
+      </div>
+
+      {/* Button outside draggable area */}
+      <div className="mt-2 flex justify-end">
         <button
           onClick={(e) => { e.stopPropagation(); breakdown() }}
           disabled={loading}
-          className="text-sm text-blue-600 hover:underline"
+          className="whitespace-nowrap bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm px-3 py-1 rounded"
         >
           {loading ? '...' : 'Desglosar'}
         </button>
       </div>
+
+      {/* Subtasks list */}
       {subtasks.length > 0 && (
-        <ul className="mt-2 ml-4 list-disc text-sm text-gray-700">
-          {subtasks.map((s, i) => <li key={i}>{s}</li>)}
+        <ul className="mt-2 ml-6 list-disc text-sm text-gray-700">
+          {subtasks.map((s, i) => (
+            <li key={i}>{s}</li>
+          ))}
         </ul>
       )}
     </li>

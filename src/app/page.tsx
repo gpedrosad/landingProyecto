@@ -45,6 +45,7 @@ export default function Home() {
       <FAQSection />
 
       <TaskList />
+      <div className="mb-20"></div>
     </div>
   )
 }
