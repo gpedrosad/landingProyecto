@@ -8,10 +8,10 @@ import { SymptomsSection } from '@/components/SymptomsSection'
 import { StepsSection } from '@/components/StepsSection'
 import { TestimonialsMarquee } from '@/components/TestimonialsMarquee'
 import { AvatarRecommenders } from '@/components/AvatarRecommenders'
-import { NumberTicker } from '@/components/NumberTicker'
 import { FAQSection } from '@/components/FAQSection'
 import TaskList from '@/components/TaskList'
 import { Task } from '@/components/types'
+import PhraseInput from '@/components/PhraseInput'
 
 
 const tasks: Task[] = [
@@ -41,11 +41,11 @@ export default function Home() {
       <StepsSection />
       <AvatarRecommenders />
       <TestimonialsMarquee />
-      <NumberTicker target={4733} label="Consultas realizadas" />
       <FAQSection />
 
       <TaskList />
       <div className="mb-20"></div>
+      <PhraseInput />
     </div>
   )
 }

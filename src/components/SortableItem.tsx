@@ -5,12 +5,13 @@ import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
 import React, { useState } from 'react'
 import { Task } from './types'
+import TaskHeader from './TaskHeader'
 
 interface SortableItemProps {
   tarea: Task
   completadas: string[]
   toggleTarea: (id: string) => void
-  onDelete: (id: string) => void   // Callback para borrar
+  onDelete: (id: string) => void
 }
 
 export default function SortableItem({
@@ -60,7 +61,7 @@ export default function SortableItem({
       title="Doble click para marcar/completar"
       onDoubleClick={() => toggleTarea(tarea.id)}
     >
-      {/* Icono X para borrar */}
+      {/* Botón de eliminar */}
       <button
         onClick={(e) => { e.stopPropagation(); onDelete(tarea.id) }}
         className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
@@ -69,21 +70,16 @@ export default function SortableItem({
         ×
       </button>
 
-      {/* Content area: draggable */}
-      <div
-        {...attributes}
-        {...listeners}
-        className="flex items-center justify-between cursor-grab"
-      >
-        <div>
-          <span className="font-medium">{tarea.titulo}</span>
-          <div className="text-sm text-gray-500">
-            {tarea.categoria === 'productivo' ? '🟠 Productivo' : '🟡 Por tiempo'} · {tarea.duracion} min
-          </div>
-        </div>
+      {/* Encabezado de la tarea (draggable) */}
+      <div {...attributes} {...listeners}>
+        <TaskHeader
+          titulo={tarea.titulo}
+          categoria={tarea.categoria}
+          duracion={tarea.duracion}
+        />
       </div>
 
-      {/* Button outside draggable area */}
+      {/* Botón para desglosar subtareas */}
       <div className="mt-2 flex justify-end">
         <button
           onClick={(e) => { e.stopPropagation(); breakdown() }}
@@ -94,7 +90,7 @@ export default function SortableItem({
         </button>
       </div>
 
-      {/* Subtasks list */}
+      {/* Lista de subtareas generadas */}
       {subtasks.length > 0 && (
         <ul className="mt-2 ml-6 list-disc text-sm text-gray-700">
           {subtasks.map((s, i) => (
