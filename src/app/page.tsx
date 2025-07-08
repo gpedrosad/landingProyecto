@@ -13,6 +13,7 @@ import TaskList from '@/components/TaskList'
 import { Task } from '@/components/types'
 import PhraseInput from '@/components/PhraseInput'
 import Footer from '@/components/Footer'
+import Questionnaire from '@/components/Questionnaire'
 
 
 const tasks: Task[] = [
@@ -47,7 +48,10 @@ export default function Home() {
       <TaskList />
       <div className="mb-20"></div>
       <PhraseInput />
+      <Questionnaire />
+      
       <Footer />
+      
     </div>
   )
 }
