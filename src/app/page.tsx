@@ -14,6 +14,8 @@ import { Task } from '@/components/types'
 import PhraseInput from '@/components/PhraseInput'
 import Footer from '@/components/Footer'
 import Questionnaire from '@/components/Questionnaire'
+import AboutArantza from '@/components/AboutArantza'
+import TestimonialSlider from '@/components/TestimonialSlider'
 
 
 const tasks: Task[] = [
@@ -32,23 +34,21 @@ const tasks: Task[] = [
 
 export default function Home() {
   return (
-    <div>
-      <PromoCard />
-      <div className="flex justify-center mt-10 mb-10 p-5">
-        <PromoBanner />
-      </div>
-
-      <DiagnosticoForm />
+    
+      <div>
+      {/* <DiagnosticoForm /> */}
+      <AboutArantza />
+      <TestimonialSlider />
       <SymptomsSection />
       <StepsSection />
       <AvatarRecommenders />
       <TestimonialsMarquee />
       <FAQSection />
 
-      <TaskList />
+      {/* <TaskList /> */}
       <div className="mb-20"></div>
-      <PhraseInput />
-      <Questionnaire />
+      {/* <PhraseInput /> */}
+      {/* <Questionnaire /> */}
       
       <Footer />
       
