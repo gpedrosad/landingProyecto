@@ -1,12 +1,12 @@
+// components/TestimonialSlider.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Tip: podés pasar tus propias fotos en avatarUrl. Si es null, mostramos iniciales.
 type Testimonial = {
   name: string;
-  avatarUrl?: string | null;
+  avatarUrl?: string | null; // ya no se usa, pero lo dejamos para compatibilidad
   text: string;
 };
 
@@ -38,15 +38,15 @@ const TESTIMONIALS: Testimonial[] = [
 ];
 
 /**
- * Slider de testimonios con altura fija y fondo configurable.
+ * Slider de testimonios sin foto, con texto dominante y altura generosa.
  *
  * Props:
- * - background: color/gradiente CSS para el fondo de la sección (default: '#676EAB').
- * - cardHeight: altura fija de la tarjeta (número en px o string CSS, default: 380).
+ * - background: color/gradiente CSS para el fondo (default: '#676EAB').
+ * - cardHeight: altura de la tarjeta (px o string CSS, default: 520).
  */
 export default function TestimonialSlider({
   background = "#676EAB",
-  cardHeight = 380,
+  cardHeight = 520,
 }: {
   background?: string;
   cardHeight?: number | string;
@@ -61,16 +61,13 @@ export default function TestimonialSlider({
   const next = () => goTo(index + 1);
   const prev = () => goTo(index - 1);
 
-  // Autoplay (pausa al interactuar con el slider)
+  // autoplay
   useEffect(() => {
-    const id = setInterval(() => {
-      next();
-    }, 6500);
+    const id = setInterval(next, 6500);
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
-  // Variants para animación de deslizamiento
   const variants = useMemo(
     () => ({
       enter: (dir: number) => ({ x: dir > 0 ? 40 : -40, opacity: 0 }),
@@ -81,15 +78,11 @@ export default function TestimonialSlider({
   );
 
   const t = TESTIMONIALS[index];
-  const cardHeightCss =
-    typeof cardHeight === "number" ? `${cardHeight}px` : cardHeight;
+  const cardHeightCss = typeof cardHeight === "number" ? `${cardHeight}px` : cardHeight;
 
   return (
-    <section
-      className="relative w-full py-16 px-4 text-zinc-900"
-      style={{ background }}
-    >
-      <div className="mx-auto max-w-4xl">
+    <section className="relative w-full py-20 px-4 text-zinc-900" style={{ background }}>
+      <div className="mx-auto max-w-5xl">
         <div className="relative">
           {/* Card */}
           <AnimatePresence custom={direction} mode="wait">
@@ -102,31 +95,23 @@ export default function TestimonialSlider({
               exit="exit"
               transition={{ duration: 0.35, ease: "easeOut" }}
               style={{ height: cardHeightCss }}
-              className="rounded-2xl border border-zinc-200/80 bg-white/90 backdrop-blur-sm shadow-[0_4px_24px_-8px_rgba(0,0,0,0.25)]"
+              className="rounded-2xl bg-white/95 backdrop-blur-sm shadow-[0_8px_32px_-10px_rgba(0,0,0,0.35)] ring-1 ring-zinc-200/80"
             >
               <div className="flex h-full flex-col">
-                <div className="flex-1 overflow-y-auto p-6 sm:p-8">
-                  <div className="space-y-4 text-[15px] leading-relaxed text-zinc-700 whitespace-pre-line">
-                    {t.text}
-                  </div>
+                {/* Contenido principal: ocupa todo y hace scroll si es muy largo */}
+                <div className="flex-1 overflow-y-auto p-8 sm:p-12">
+                  <figure className="mx-auto max-w-3xl">
+                    <blockquote className="text-[16px] sm:text-[17px] leading-7 sm:leading-8 text-zinc-800 whitespace-pre-line">
+                      {t.text}
+                    </blockquote>
+                  </figure>
                 </div>
-                <div className="h-px w-full bg-zinc-200" />
-                <div className="flex items-center gap-4 p-6 sm:p-8">
-                  {t.avatarUrl ? (
-                    // Imagen real si viene URL
-                    <img
-                      src={t.avatarUrl}
-                      alt={t.name}
-                      className="size-16 rounded-xl object-cover"
-                    />
-                  ) : (
-                    // Placeholder con iniciales
-                    <div className="grid size-16 place-items-center rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white text-lg font-semibold shadow-inner">
-                      {t.name?.slice(0, 1) || "A"}
-                    </div>
-                  )}
-                  <div>
-                    <p className="text-lg font-semibold text-emerald-700">{t.name}</p>
+
+                {/* Firma */}
+                <div className="h-px w-full bg-zinc-200/70" />
+                <div className="flex items-center justify-end px-8 py-6 sm:px-12">
+                  <div className="text-right">
+                    <p className="text-base font-semibold text-emerald-700">{t.name}</p>
                     <p className="text-xs text-zinc-500">Testimonio</p>
                   </div>
                 </div>
@@ -139,7 +124,7 @@ export default function TestimonialSlider({
             <button
               onClick={prev}
               aria-label="Anterior"
-              className="pointer-events-auto grid size-9 place-items-center rounded-full bg-white/80 shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-white"
+              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-white/85 shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-white"
             >
               <svg
                 width="18"
@@ -151,13 +136,13 @@ export default function TestimonialSlider({
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <polyline points="15 18 9 12 15 6"></polyline>
+                <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
             <button
               onClick={next}
               aria-label="Siguiente"
-              className="pointer-events-auto grid size-9 place-items-center rounded-full bg-white/80 shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-white"
+              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-white/85 shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-white"
             >
               <svg
                 width="18"
@@ -169,7 +154,7 @@ export default function TestimonialSlider({
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <polyline points="9 18 15 12 9 6"></polyline>
+                <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
           </div>
