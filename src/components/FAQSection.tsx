@@ -32,44 +32,49 @@ const faqs = [
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const toggle = (idx: number) =>
-    setOpenIndex(openIndex === idx ? null : idx);
+  const toggle = (idx: number) => setOpenIndex(openIndex === idx ? null : idx);
 
   return (
-    <section className="bg-white py-16 px-4 sm:px-12 lg:px-32">
-      <h2 className="text-3xl font-semibold text-gray-800 text-center mb-8">
+    <section
+      className="py-16 px-4 sm:px-12 lg:px-32"
+      style={{ backgroundColor: "#215d4c" }} // fondo solicitado
+    >
+      <h2 className="text-3xl font-semibold text-white text-center mb-8">
         Preguntas Frecuentes
       </h2>
+
       <div className="max-w-3xl mx-auto space-y-4">
-        {faqs.map((item, idx) => (
-          <div
-            key={idx}
-            className="border border-gray-200 rounded-xl overflow-hidden"
-          >
-            <button
-              onClick={() => toggle(idx)}
-              className="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition"
-            >
-              <span className="text-gray-800 font-medium">
-                {item.question}
-              </span>
-              <span className="text-gray-500 transform transition-transform duration-300"
-                    style={{
-                      transform: openIndex === idx ? "rotate(45deg)" : "rotate(0deg)",
-                    }}>
-                +
-              </span>
-            </button>
+        {faqs.map((item, idx) => {
+          const isOpen = openIndex === idx;
+          return (
             <div
-              className={`px-4 pt-0 overflow-hidden transition-all duration-300 ${
-                openIndex === idx ? "max-h-40 py-4" : "max-h-0"
-              }`}
+              key={idx}
+              className="rounded-xl overflow-hidden border border-white/20 bg-white/5 backdrop-blur-sm"
             >
-              <p className="text-gray-600">{item.answer}</p>
+              <button
+                onClick={() => toggle(idx)}
+                className="w-full flex justify-between items-center p-4 text-left hover:bg-white/10 transition"
+              >
+                <span className="text-white font-medium">{item.question}</span>
+                <span
+                  className="text-white/90 transform transition-transform duration-300 text-xl leading-none select-none"
+                  style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
+                  aria-hidden
+                >
+                  +
+                </span>
+              </button>
+
+              <div
+                className={`px-4 overflow-hidden transition-all duration-300 ${
+                  isOpen ? "max-h-40 py-4" : "max-h-0"
+                }`}
+              >
+                <p className="text-white/90">{item.answer}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

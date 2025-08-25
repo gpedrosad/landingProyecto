@@ -1,47 +1,83 @@
-import Link from 'next/link';
-import { Instagram } from 'lucide-react';
+// src/components/Footer.tsx
+import Link from "next/link";
+import Image from "next/image";
+import { Instagram } from "lucide-react";
 
-interface FooterProps {
-  /** Opciones de fondo: 'pink' o 'purple' */
-  variant?: 'pink' | 'purple';
-}
-
-const bgClasses: Record<NonNullable<FooterProps['variant']>, string> = {
-  pink: 'bg-pink-50',
-  purple: 'bg-purple-50',
+type FooterProps = {
+  /** Ruta del logo (por defecto /logo.png en /public) */
+  logoSrc?: string;
+  /** Nombre de marca para fallback del logo y copyright */
+  name?: string;
+  /** Email de contacto */
+  email?: string;
+  /** Subtítulo bajo el logo (opcional) */
+  tagline?: string;
+  /** Instagram (handle sin @ y URL). Pasa null para ocultarlo. */
+  instagram?: { handle: string; url: string } | null;
 };
 
-const Footer: React.FC<FooterProps> = ({ variant = 'pink' }) => {
-  const bgClass = bgClasses[variant];
-
+const Footer: React.FC<FooterProps> = ({
+  logoSrc = "/logo.png",
+  name = "Arantza",
+  email = "info@arantza.com",
+  tagline = "FLORESCENCIA",
+  instagram = null, // por defecto oculto para imitar tu diseño
+}) => {
   return (
-    <footer className={`${bgClass} text-gray-700 py-12 rounded-t-2xl shadow-inner`}>  
-      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Información de contacto */}
-        <div className="space-y-2">
-          <h3 className="text-2xl font-bold">Arantazu Larraza</h3>
-          <p className="text-sm">Psicóloga Clínica</p>
-          <p className="text-sm">+54 9 11 1234 5678</p>
-          <p className="text-sm">arantazu@psico.com</p>
+    <footer className="bg-[#6571ac] text-white">
+      <div className="mx-auto max-w-4xl px-6 py-16 text-center">
+        {/* Logo / Nombre */}
+        {logoSrc ? (
+          <div className="mx-auto mb-6 h-20 w-44 relative">
+            <Image
+              src={logoSrc}
+              alt={`${name} logo`}
+              fill
+              priority
+              className="object-contain"
+            />
+          </div>
+        ) : (
+          <h2 className="mb-2 text-3xl font-semibold tracking-wide">{name}</h2>
+        )}
+
+        {/* Tagline (opcional) */}
+        {tagline && (
+          <p className="text-xs uppercase tracking-[0.25em] opacity-95">
+            {tagline}
+          </p>
+        )}
+
+        {/* Email */}
+        <div className="mt-6">
+          <a
+            href={`mailto:${email}`}
+            className="inline-block rounded-full bg-white/10 px-4 py-2 text-sm font-medium tracking-wide hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/60"
+          >
+            {email}
+          </a>
         </div>
 
-        {/* Redes Sociales */}
-        <div className="flex flex-col items-start">
-          <h3 className="text-2xl font-bold mb-2">Instagram</h3>
-          <Link
-            href="https://instagram.com/arantazu_psico"
-            aria-label="Instagram"
-            className="flex items-center space-x-2 hover:opacity-80">
-            <div className="p-2 bg-white rounded-full shadow-md">
-              <Instagram size={24} />
-            </div>
-            <span className="text-sm">@arantazu_psico</span>
-          </Link>
-        </div>
-      </div>
+        {/* Instagram (opcional) */}
+        {instagram && (
+          <div className="mt-6 flex justify-center">
+            <Link
+              href={instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-sm hover:bg-white/15"
+              aria-label="Instagram"
+            >
+              <Instagram className="h-5 w-5" />
+              <span>@{instagram.handle.replace(/^@/, "")}</span>
+            </Link>
+          </div>
+        )}
 
-      <div className="mt-8 border-t border-gray-200 pt-4 text-center text-xs">
-        © {new Date().getFullYear()} Arantazu Larraza. Todos los derechos reservados.
+        {/* Divider + Copyright */}
+        <div className="mt-10 border-t border-white/20 pt-4 text-xs leading-relaxed">
+          © {new Date().getFullYear()} {name}. Todos los derechos reservados.
+        </div>
       </div>
     </footer>
   );

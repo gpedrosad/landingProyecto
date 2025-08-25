@@ -1,18 +1,19 @@
 import { CheckCircle } from "lucide-react";
 
 const symptoms = [
-  "Sensación de inquietud, tensión o nerviosismo.",
-  "Problemas para dormir.",
-  "Dificultad para concentrarse.",
-  "Fatiga, irritabilidad o tensión muscular.",
-  "Sensación constante de que algo malo va a pasar y no poder detener ese pensamiento.",
+  "Desánimo persistente.",
+  "Cambios significativos en el peso.",
+  "Fatiga o falta de energía.",
+  "Sentimientos de culpa o inutilidad.",
+  "Dificultad para concentrarse o tomar decisiones.",
+  "Pensamientos sobre la muerte o el suicidio.",
 ];
 
-export function SymptomsSection({
-  // Fondo: empieza suave en verde y termina en blanco
-  backgroundClass = "bg-gradient-to-b from-emerald-50 via-white to-white",
+export function DepressionSymptomsSection({
+  // ahora parte en blanco para integrarse con el bloque anterior
+  backgroundClass = "bg-gradient-to-b from-white via-white to-emerald-50",
 }: {
-  /** Clases de Tailwind para el fondo de la sección */
+  /** Tailwind classes para el fondo de la sección */
   backgroundClass?: string;
 }) {
   return (
@@ -21,18 +22,19 @@ export function SymptomsSection({
         {/* Encabezado */}
         <div className="text-center">
           <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
-            — según el Instituto Nacional de la Salud Mental —
+            — según la Asociación Americana de Psicología —
           </span>
           <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900">
-            Señales comunes de ansiedad
+            Señales comunes de depresión
           </h2>
           <p className="mt-3 text-zinc-600">
-            Si te identificas con varias de estas señales, puede ser un buen
-            momento para buscar apoyo profesional.
+            Aunque cada persona la vive de forma distinta, estas señales pueden
+            indicar que algo no está bien. Si te identificás con varias, puede
+            ser buen momento para buscar apoyo profesional.
           </p>
         </div>
 
-        {/* Lista (sin animaciones) */}
+        {/* Lista estética (sin animaciones) */}
         <ul className="mt-10 grid gap-4 sm:grid-cols-2">
           {symptoms.map((symptom, index) => (
             <li
@@ -40,7 +42,7 @@ export function SymptomsSection({
               className="flex items-start gap-3 rounded-2xl bg-white ring-1 ring-emerald-100 p-5 shadow-sm"
             >
               {/* Acento visual */}
-              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200">
+              <div className="grid size-9 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200">
                 <CheckCircle className="h-5 w-5" aria-hidden />
               </div>
 

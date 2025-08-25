@@ -1,21 +1,16 @@
 // app/page.tsx (o pages/index.tsx)
 'use client'
 
-import PromoCard from '@/components/PromoCard'
-import PromoBanner from '@/components/PromoBanner'
-import DiagnosticoForm from '@/components/DiagnosticoForm'
+
 import { SymptomsSection } from '@/components/SymptomsSection'
 import { StepsSection } from '@/components/StepsSection'
-import { TestimonialsMarquee } from '@/components/TestimonialsMarquee'
 import { AvatarRecommenders } from '@/components/AvatarRecommenders'
 import { FAQSection } from '@/components/FAQSection'
-import TaskList from '@/components/TaskList'
 import { Task } from '@/components/types'
-import PhraseInput from '@/components/PhraseInput'
 import Footer from '@/components/Footer'
-import Questionnaire from '@/components/Questionnaire'
 import AboutArantza from '@/components/AboutArantza'
 import TestimonialSlider from '@/components/TestimonialSlider'
+import { DepressionSymptomsSection } from '@/components/DepressionSymptomsSection'
 
 
 const tasks: Task[] = [
@@ -40,15 +35,11 @@ export default function Home() {
       <AboutArantza />
       <TestimonialSlider />
       <SymptomsSection />
+      <DepressionSymptomsSection />
       <StepsSection />
       <AvatarRecommenders />
-      <TestimonialsMarquee />
       <FAQSection />
 
-      {/* <TaskList /> */}
-      <div className="mb-20"></div>
-      {/* <PhraseInput /> */}
-      {/* <Questionnaire /> */}
       
       <Footer />
       
