@@ -34,16 +34,14 @@ export default function StickyWhatsAppButton({
         // Posición fija y centrado horizontal
         "fixed bottom-5 left-1/2 -translate-x-1/2 z-50",
         // Botón
-        "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3",
-        "bg-[#25D366] text-white shadow-lg hover:brightness-110 active:brightness-95 transition",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#128C7E]",
+        " inline-flex items-center justify-center gap-2 rounded-full px-5 py-3",
+        "bg-[#2f6657] text-white shadow-2xl shadow-black/15 hover:brightness-110 active:brightness-95 transition",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f4b41]",
         className,
       ].join(" ")}
     >
       <FaWhatsapp className="h-6 w-6" aria-hidden />
-      {!iconOnly && (
-        <span className="font-semibold">Agenda por WhatsApp</span>
-      )}
+      {!iconOnly && <span className="font-semibold">Agenda por WhatsApp</span>}
     </a>
   );
 }

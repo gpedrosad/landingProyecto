@@ -30,7 +30,7 @@ export function SymptomsSection({
         <div>
           <div className="text-center">
             <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
-              — según el Instituto Nacional de la Salud Mental —
+              — Según el Instituto Nacional de la Salud Mental —
             </span>
             <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900">
               Señales comunes de ansiedad
@@ -59,7 +59,7 @@ export function SymptomsSection({
         <div>
           <div className="text-center">
             <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
-              — según la Asociación Americana de Psicología —
+              — Según la Asociación Americana de Psicología —
             </span>
             <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900">
               Señales comunes de depresión

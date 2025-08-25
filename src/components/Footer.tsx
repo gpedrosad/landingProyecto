@@ -18,9 +18,8 @@ type FooterProps = {
 };
 
 const Footer: React.FC<FooterProps> = ({
-  logoSrc = "/logo.png",
+  logoSrc = "/logo3.png",
   name = "Florescencia",
-  tagline = "FLORESCENCIA",
   phone = "+56 9 7877 1520",
   instagram = { handle: "florescencia.cl", url: "https://instagram.com/florescencia.cl" },
 }) => {
@@ -48,12 +47,7 @@ const Footer: React.FC<FooterProps> = ({
           <h2 className="mb-2 text-3xl font-semibold tracking-wide">{name}</h2>
         )}
 
-        {/* Tagline (opcional) */}
-        {tagline && (
-          <p className="text-xs uppercase tracking-[0.25em] opacity-95">
-            {tagline}
-          </p>
-        )}
+
 
         {/* Botones de contacto */}
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

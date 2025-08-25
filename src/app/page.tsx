@@ -3,7 +3,6 @@
 
 import { SymptomsSection } from "@/components/SymptomsSection";
 import { StepsSection } from "@/components/StepsSection";
-import { AvatarRecommenders } from "@/components/AvatarRecommenders";
 import { FAQSection } from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import AboutArantza from "@/components/AboutArantza";
@@ -17,7 +16,6 @@ export default function Home() {
       <TestimonialSlider />
       <SymptomsSection />
       <StepsSection />
-      <AvatarRecommenders />
       <FAQSection />
       <Footer />
 
