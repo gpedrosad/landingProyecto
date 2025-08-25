@@ -18,8 +18,8 @@ const depressionSymptoms = [
 ];
 
 export function SymptomsSection({
-  /** Clases Tailwind para el fondo (verde → blanco) */
-  backgroundClass = "bg-gradient-to-b from-emerald-50 via-white to-white",
+  /** Fondo con transición al blanco al final */
+  backgroundClass = "bg-[linear-gradient(to_bottom,#215d4c_0%,#215d4c_85%,#ffffff_100%)]",
 }: {
   backgroundClass?: string;
 }) {
@@ -29,13 +29,13 @@ export function SymptomsSection({
         {/* ───────────── Ansiedad ───────────── */}
         <div>
           <div className="text-center">
-            <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white">
               — Según el Instituto Nacional de la Salud Mental —
             </span>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
               Señales comunes de ansiedad
             </h2>
-            <p className="mt-3 text-zinc-600">
+            <p className="mt-3 text-white/90">
               Si te identificas con varias de estas señales, puede ser un buen momento para buscar apoyo profesional.
             </p>
           </div>
@@ -58,13 +58,13 @@ export function SymptomsSection({
         {/* ───────────── Depresión ───────────── */}
         <div>
           <div className="text-center">
-            <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white">
               — Según la Asociación Americana de Psicología —
             </span>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
               Señales comunes de depresión
             </h2>
-            <p className="mt-3 text-zinc-600">
+            <p className="mt-3 text-white/90">
               Aunque cada persona lo vive de forma distinta, estas señales pueden indicar que algo no está bien. Si te
               identificas con varias, puede ser un buen momento para buscar apoyo profesional.
             </p>
