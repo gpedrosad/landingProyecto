@@ -13,9 +13,8 @@ const avatarUrls = [
 
 export function AvatarRecommenders() {
   return (
-    <div className="bg-gray-50 py-8">
+    <div className="py-8 bg-[linear-gradient(to_bottom,#ede0d6_0%,#ede0d6_90%,#215d4c_100%)]">
       <div className="container mx-auto px-4 flex flex-col items-center space-y-4">
-        
         {/* Avatares solapados */}
         <div className="flex -space-x-3">
           {avatarUrls.map((src, idx) => (
@@ -28,13 +27,13 @@ export function AvatarRecommenders() {
           ))}
 
           {/* Contador extra */}
-          <div className="h-10 w-10 flex items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-600 ring-2 ring-white">
+          <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white/70 text-sm font-medium text-gray-700 ring-2 ring-white">
             +99
           </div>
         </div>
 
         {/* Texto debajo de los avatares */}
-        <p className="text-gray-700 font-medium text-center">
+        <p className="font-medium text-center text-[#2a2a2a]">
           Recomiendan el tratamiento
         </p>
       </div>
