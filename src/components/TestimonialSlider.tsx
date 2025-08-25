@@ -12,19 +12,19 @@ type Testimonial = {
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Paciente",
+    name: "Ignacio",
     avatarUrl: null,
     text:
       "Ha sido una grata experencia, al principio un poco reacio a los resultados que pudiese tener pasar por terapias sicologicas, no era muy crédulo en esta ciencia, pero a medida que pasan las sesiones me puedo ir dando cuenta de lo equivocado que estaba, y el aporte lo vivo semana a semana, sesión a sesión, conversación a conversación, ese espacio que nos damos para hablar de cosas que uno no muchas veces puede hablar o no tiene otro punto de vista que Arantza si me lo puede dar se agradece.",
   },
   {
-    name: "Paciente",
+    name: "Valentina",
     avatarUrl: null,
     text:
       "Desde que comencé terapia con la Arantzazu me sentí cómoda, fue un acierto llegar a ella a través de una derivación. Es muy fácil hablar con ella, es una profesional muy comprometida, compasiva, y para mí lo mejor, es que es cercana, la siento como una amiga sin perder la relación profesional-consultante.\n\nEs versátil a la hora de atender, se adapta a ti y tus necesidades personales de terapia, constantemente busca la mejor forma de apoyarte en sesión.\n\nPersonalmente me ha dado muchas herramientas y conocimientos para conocerme a mi misma, aceptarme y manejar situaciones que yo pensaba imposibles de mejorar. Es una psicóloga maravillosa, me ayudo y sigue ayudándome a creer en mi y a seguir mejorando.",
   },
   {
-    name: "Paciente",
+    name: "Isidora",
     avatarUrl: null,
     text:
       "Conocí a la Ari por casualidad en un momento en que necesitaba apoyo psicológico, y que ella se haya cruzado en mi camino fue casi una sincronía. Desde la primera sesión sentí que estaba en buenas manos. Es una profesional comprometida, que escucha con atención, que estructura cada sesión con sentido y que me entrega herramientas concretas basadas en evidencia, algo que para mí hace toda la diferencia. Su forma de trabajar me hace sentir segura y acompañada.\n\nGracias a su guía he podido entender mejor lo que me pasa, aprender a manejar la ansiedad y recuperar un poco la calma. Con el pasar de las sesiones he logrado obtener claridad de las cosas que me pasan, alivio y una nueva forma de enfrentar mis días.",
