@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 
 export default function AboutArantza() {
   return (
-    <section
-      className="relative w-full"
-      style={{ backgroundColor: "#bbb491" }}
-    >
-      <div className="mx-auto max-w-3xl px-6 py-10 sm:py-14">
+    <section className="relative w-full" style={{ backgroundColor: "#bbb491" }}>
+      {/* Degradado inferior: #bbb491 a violeta */}
+      <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-t from-[#676EAB] to-[#bbb491] z-0 pointer-events-none" />
+
+      <div className="relative z-10 mx-auto max-w-3xl px-6 py-10 sm:py-14">
         {/* Logo */}
         <div className="flex justify-center">
           <div className="relative h-24 w-[260px] sm:h-20 sm:w-[320px]">

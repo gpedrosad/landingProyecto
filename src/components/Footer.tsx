@@ -5,34 +5,31 @@ import { Instagram } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 type FooterProps = {
-  /** Ruta del logo (por defecto /logo.png en /public) */
   logoSrc?: string;
-  /** Nombre de marca para fallback del logo y copyright */
   name?: string;
-  /** Subtítulo bajo el logo (opcional) */
   tagline?: string;
-  /** WhatsApp (número en cualquier formato, se normaliza) */
   phone?: string;
-  /** Instagram (handle sin @ y URL). */
   instagram?: { handle: string; url: string };
 };
 
 const Footer: React.FC<FooterProps> = ({
   logoSrc = "/logo3.png",
   name = "Florescencia",
-  phone = "+56 9 7877 1520",
+  phone = "+56 9 7964 3558",
   instagram = { handle: "florescencia.cl", url: "https://instagram.com/florescencia.cl" },
 }) => {
-  // Normaliza el número a dígitos para wa.me
   const normalizedPhone = phone.replace(/[^\d]/g, "");
   const waHref = `https://wa.me/${normalizedPhone}?text=${encodeURIComponent(
     "Hola, me gustaría agendar una sesión."
   )}`;
 
   return (
-    <footer className="bg-[#6571ac] text-white">
-      <div className="mx-auto max-w-4xl px-6 py-16 text-center">
-        {/* Logo / Nombre */}
+    <footer className="relative bg-[#6571ac] text-white pt-28 pb-16">
+      {/* Degradado superior hacia blanco (más alto, detrás del contenido) */}
+      <div className="absolute top-0 left-0 w-full h-0 bg-gradient-to-t from-[#6571ac] to-white pointer-events-none z-0" />
+
+      {/* Contenido del footer (por encima del degradado) */}
+      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         {logoSrc ? (
           <div className="mx-auto mb-6 h-20 w-44 relative">
             <Image
@@ -47,11 +44,7 @@ const Footer: React.FC<FooterProps> = ({
           <h2 className="mb-2 text-3xl font-semibold tracking-wide">{name}</h2>
         )}
 
-
-
-        {/* Botones de contacto */}
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          {/* WhatsApp */}
           <a
             href={waHref}
             target="_blank"
@@ -63,7 +56,6 @@ const Footer: React.FC<FooterProps> = ({
             <span>{phone}</span>
           </a>
 
-          {/* Instagram */}
           <Link
             href={instagram.url}
             target="_blank"
@@ -76,7 +68,6 @@ const Footer: React.FC<FooterProps> = ({
           </Link>
         </div>
 
-        {/* Divider + Copyright */}
         <div className="mt-10 border-t border-white/20 pt-4 text-xs leading-relaxed">
           © {new Date().getFullYear()} {name}. Todos los derechos reservados.
         </div>

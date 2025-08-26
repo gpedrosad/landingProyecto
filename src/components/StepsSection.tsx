@@ -30,12 +30,7 @@ const steps: Step[] = [
 
 export function StepsSection() {
   return (
-    <section
-      className="
-        py-20 px-6 sm:px-12 lg:px-32
-        bg-[linear-gradient(to_bottom,white_0%,white_4%,#ede0d6_12%,#ede0d6_100%)]
-      "
-    >
+    <section className="py-20 px-6 sm:px-12 lg:px-32 bg-[#ede0d6]">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-semibold text-[#2a2a2a] mb-6">
           ¿Cómo empezar el proceso?

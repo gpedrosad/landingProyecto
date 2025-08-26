@@ -1,4 +1,3 @@
-// components/FAQSection.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -36,45 +35,53 @@ export function FAQSection() {
 
   return (
     <section
-      className="py-16 px-4 sm:px-12 lg:px-32"
-      style={{ backgroundColor: "#215d4c" }} // fondo solicitado
+      className="relative pt-40 pb-40 px-4 sm:px-12 lg:px-32"
+      style={{ backgroundColor: "#215d4c" }}
     >
-      <h2 className="text-3xl font-semibold text-white text-center mb-8">
-        Preguntas Frecuentes
-      </h2>
+      {/* Degradado superior hacia #ede0d6 */}
+      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-t from-[#215d4c] to-[#ede0d6] pointer-events-none z-0" />
 
-      <div className="max-w-3xl mx-auto space-y-4">
-        {faqs.map((item, idx) => {
-          const isOpen = openIndex === idx;
-          return (
-            <div
-              key={idx}
-              className="rounded-xl overflow-hidden border border-white/20 bg-white/5 backdrop-blur-sm"
-            >
-              <button
-                onClick={() => toggle(idx)}
-                className="w-full flex justify-between items-center p-4 text-left hover:bg-white/10 transition"
-              >
-                <span className="text-white font-medium">{item.question}</span>
-                <span
-                  className="text-white/90 transform transition-transform duration-300 text-xl leading-none select-none"
-                  style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
-                  aria-hidden
-                >
-                  +
-                </span>
-              </button>
+      {/* Degradado inferior hacia #6571ac */}
+      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-[#215d4c] to-[#6571ac] pointer-events-none z-0" />
 
+      <div className="relative z-10">
+        <h2 className="text-3xl font-semibold text-white text-center mb-8">
+          Preguntas Frecuentes
+        </h2>
+
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqs.map((item, idx) => {
+            const isOpen = openIndex === idx;
+            return (
               <div
-                className={`px-4 overflow-hidden transition-all duration-300 ${
-                  isOpen ? "max-h-40 py-4" : "max-h-0"
-                }`}
+                key={idx}
+                className="rounded-xl overflow-hidden border border-white/20 bg-white/5 backdrop-blur-sm"
               >
-                <p className="text-white/90">{item.answer}</p>
+                <button
+                  onClick={() => toggle(idx)}
+                  className="w-full flex justify-between items-center p-4 text-left hover:bg-white/10 transition"
+                >
+                  <span className="text-white font-medium">{item.question}</span>
+                  <span
+                    className="text-white/90 transform transition-transform duration-300 text-xl leading-none select-none"
+                    style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
+                    aria-hidden
+                  >
+                    +
+                  </span>
+                </button>
+
+                <div
+                  className={`px-4 overflow-hidden transition-all duration-300 ${
+                    isOpen ? "max-h-20 py-4" : "max-h-0"
+                  }`}
+                >
+                  <p className="text-white/90">{item.answer}</p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

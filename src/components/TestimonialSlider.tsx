@@ -124,7 +124,7 @@ export default function TestimonialSlider({
             <button
               onClick={prev}
               aria-label="Anterior"
-              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-white/85 shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-white"
+              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-[#e6d5c8] shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-[#e6d5c8]/90"
             >
               <svg
                 width="18"
@@ -142,7 +142,7 @@ export default function TestimonialSlider({
             <button
               onClick={next}
               aria-label="Siguiente"
-              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-white/85 shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-white"
+              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-[#e6d5c8] shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-[#e6d5c8]/90"
             >
               <svg
                 width="18"
@@ -169,7 +169,7 @@ export default function TestimonialSlider({
               onClick={() => goTo(i)}
               className={`h-2.5 w-2.5 rounded-full transition-all ${
                 i === index
-                  ? "bg-amber-400 ring-4 ring-amber-400/30"
+                  ? "bg-[#e6d5c8] ring-4 ring-[#e6d5c8]/30"
                   : "bg-white/70 ring-4 ring-white/20 hover:ring-white/40"
               }`}
             />

@@ -17,16 +17,17 @@ const depressionSymptoms = [
   "Pensamientos sobre la muerte o el suicidio.",
 ];
 
-export function SymptomsSection({
-  /** Fondo con transición al blanco al final */
-  backgroundClass = "bg-[linear-gradient(to_bottom,#215d4c_0%,#215d4c_85%,#ffffff_100%)]",
-}: {
-  backgroundClass?: string;
-}) {
+export function SymptomsSection() {
   return (
-    <section className={`${backgroundClass} py-16 px-6 sm:px-12 lg:px-32`}>
-      <div className="mx-auto max-w-4xl space-y-16">
-        {/* ───────────── Ansiedad ───────────── */}
+    <section className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c]">
+      {/* Degradado superior: violeta a verde */}
+      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#676EAB] to-[#215d4c] z-0 pointer-events-none" />
+
+      {/* Degradado inferior: verde a #e6d5c8 */}
+      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#e6d5c8] to-[#215d4c] z-0 pointer-events-none" />
+
+      <div className="relative z-10 mx-auto max-w-4xl space-y-16">
+        {/* Ansiedad */}
         <div>
           <div className="text-center">
             <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white">
@@ -46,7 +47,7 @@ export function SymptomsSection({
                 key={`anx-${index}`}
                 className="flex items-start gap-3 rounded-2xl bg-white ring-1 ring-emerald-100 p-5 shadow-sm"
               >
-                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200">
+                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e6d5c8] text-[#676EAB] ring-1 ring-[#dbc8bb]">
                   <CheckCircle className="h-5 w-5" aria-hidden />
                 </div>
                 <p className="text-[15px] leading-relaxed text-zinc-800">{symptom}</p>
@@ -55,7 +56,7 @@ export function SymptomsSection({
           </ul>
         </div>
 
-        {/* ───────────── Depresión ───────────── */}
+        {/* Depresión */}
         <div>
           <div className="text-center">
             <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white">
@@ -76,7 +77,7 @@ export function SymptomsSection({
                 key={`dep-${index}`}
                 className="flex items-start gap-3 rounded-2xl bg-white ring-1 ring-emerald-100 p-5 shadow-sm"
               >
-                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200">
+                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e6d5c8] text-[#676EAB] ring-1 ring-[#dbc8bb]">
                   <CheckCircle className="h-5 w-5" aria-hidden />
                 </div>
                 <p className="text-[15px] leading-relaxed text-zinc-800">{symptom}</p>
