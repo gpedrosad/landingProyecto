@@ -19,7 +19,7 @@ const depressionSymptoms = [
 
 export function SymptomsSection() {
   return (
-    <section className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c]">
+    <section className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c]" aria-labelledby="symptoms-intro-title">
       {/* Degradado superior: violeta a verde */}
       <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#676EAB] to-[#215d4c] z-0 pointer-events-none" />
 
@@ -27,6 +27,25 @@ export function SymptomsSection() {
       <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#e6d5c8] to-[#215d4c] z-0 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-4xl space-y-16">
+        {/* Intro agregado */}
+        <div className="text-center">
+          <h2 id="symptoms-intro-title" className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white">
+            ¿Sientes que últimamente te cuesta disfrutar de lo que antes te hacía bien?
+          </h2>
+          <p className="mt-3 text-lg sm:text-xl text-white/95">¿Que tu cabeza no descansa?</p>
+          <p className="text-lg sm:text-xl text-white/95">¿Que no tienes control sobre lo que te pasa?</p>
+
+          <div className="mx-auto mt-6 max-w-3xl text-left sm:text-center">
+            <p className="text-white/90 leading-relaxed">
+              La ansiedad y la depresión pueden sentirse como un torbellino que arrasa con tu vida. No solo viven en tu mente:
+              también afectan a tu cuerpo, tus relaciones y la forma en que te miras a ti mism@.
+            </p>
+            <p className="mt-4 text-white/90 leading-relaxed">
+              Puede que intentes seguir adelante, en modo piloto automático, pero en el fondo sabes que algo no anda bien.
+            </p>
+          </div>
+        </div>
+
         {/* Ansiedad */}
         <div>
           <div className="text-center">
@@ -85,6 +104,27 @@ export function SymptomsSection() {
             ))}
           </ul>
         </div>
+
+        {/* Invitación final */}
+        <div className="text-center mt-6 sm:mt-10">
+          <p className="text-white/95 text-lg sm:text-xl">
+            Pero… ¿qué pasa si te digo que puedes elegir cómo vivir?
+          </p>
+          <div className="mx-auto mt-4 max-w-3xl space-y-3 text-white/90 leading-relaxed">
+            <p>No me malinterpretes: no puedes controlar el cambio climático, el tráfico de la ciudad, cómo reaccionan las personas, lo que piensen de ti o los imprevistos que interrumpen tu día.</p>
+            <p>Lo que sí puedes elegir es cómo afrontarlo. Y no tienes por qué hacerlo sol@.</p>
+            <p>Porque de eso se trata la terapia: de acompañarte en este proceso, paso a paso, hasta que vuelvas a sentir calma, confianza y ligereza en tu vida.</p>
+            <p>Tu día a día puede (y merece) ser disfrutado. Vivir de manera plena y tranquila sí es una opción.</p>
+            <p>Y estás a un click de dar el primer paso. ¿List@ para empezar?</p>
+          </div>
+          <a
+            href="/agendar"
+            className="mt-6 inline-flex items-center justify-center rounded-2xl bg-[#e6d5c8] px-6 py-3 font-semibold text-[#215d4c] shadow-sm ring-1 ring-[#dbc8bb] hover:shadow-md hover:bg-[#ecdccd] transition-colors"
+          >
+            👉 Agendar primera sesión
+          </a>
+        </div>
+
       </div>
     </section>
   );

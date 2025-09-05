@@ -35,6 +35,13 @@ const TESTIMONIALS: Testimonial[] = [
     text:
       "En mi caso ha creado destellos de luz en un vida que solo veia ocuridad. Sabe crear un espacio cómodo y seguro donde puedes comprender y aceptar tu situación. Se ha convertido en una persona importante que además es muy empática. Sé que es un proceso largo pero ella te guia por el camino correcto. La recomiendo sin dudarlo",
   },
+  // NUEVA REVIEW
+  {
+    name: "Alina",
+    avatarUrl: null,
+    text:
+      "Luego de muchos psicólogos pude dar en el clavo con Arantza, me sentí acogida desde el primer día, me acompañó y ayudó durante todo mi proceso, hasta que pude sanar mis heridas, estoy muy agradecida de su labor, ya que, al fin después de años pude superar las dificultades que me estancaban en la vida.",
+  },
 ];
 
 /**

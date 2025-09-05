@@ -39,6 +39,46 @@ export default function AboutArantza() {
           Psicóloga clínica · Enfoque humano, basado en evidencia y libre de juicios.
         </p>
 
+        {/* Foto estilizada */}
+        <div className="mt-7 flex justify-center">
+          <motion.figure
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            whileHover={{ scale: 1.01 }}
+            className="
+              relative rounded-3xl p-[2px]
+              bg-gradient-to-br from-white/60 via-white/20 to-[#676EAB]/40
+              shadow-[0_30px_100px_-30px_rgba(0,0,0,0.6)]
+            "
+          >
+            {/* CONTENEDOR: AJUSTA AQUÍ EL TAMAÑO */}
+            <div className="relative overflow-hidden rounded-[22px] w-[240px] sm:w-[260px] md:w-[300px] aspect-[3/4]">
+              <Image
+                src="/arancha.png"
+                alt="Arantza"
+                fill
+                quality={90}
+                sizes="(max-width: 640px) 60vw, 300px"
+                className="object-cover"
+                priority
+              />
+
+              {/* Viñeta sutil para dar profundidad */}
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(110% 90% at 50% 10%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.18) 100%)",
+                }}
+              />
+            </div>
+
+            {/* Sombra base suave y borde tenue */}
+            <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-white/30" />
+          </motion.figure>
+        </div>
+
         {/* Contenido (párrafos justificados) */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
