@@ -55,7 +55,7 @@ export default function AboutArantza() {
             {/* CONTENEDOR: AJUSTA AQUÍ EL TAMAÑO */}
             <div className="relative overflow-hidden rounded-[22px] w-[240px] sm:w-[260px] md:w-[300px] aspect-[3/4]">
               <Image
-                src="/arancha.png"
+                src="/arancha1.png"
                 alt="Arantza"
                 fill
                 quality={90}
