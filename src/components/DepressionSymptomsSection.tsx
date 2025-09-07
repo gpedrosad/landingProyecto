@@ -11,7 +11,7 @@ const symptoms = [
 
 export function DepressionSymptomsSection({
   // ahora parte en blanco para integrarse con el bloque anterior
-  backgroundClass = "bg-gradient-to-b from-white via-white to-emerald-50",
+  backgroundClass = "bg-gradient-to-b from-white via-white to-emerald-50 dark:bg-[#2a2a2a]",
 }: {
   /** Tailwind classes para el fondo de la sección */
   backgroundClass?: string;
@@ -21,13 +21,13 @@ export function DepressionSymptomsSection({
       <div className="mx-auto max-w-4xl">
         {/* Encabezado */}
         <div className="text-center">
-          <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+          <span className="inline-flex items-center rounded-full dark:rounded-md border border-emerald-200 dark:border-[#555] bg-emerald-50 dark:bg-[#333] px-3 py-1 text-xs font-medium text-emerald-700 dark:text-[#e5e5e5]">
             — según la Asociación Americana de Psicología —
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900">
+          <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 dark:text-[#e5e5e5]">
             Señales comunes de depresión
           </h2>
-          <p className="mt-3 text-zinc-600">
+          <p className="mt-3 text-zinc-600 dark:text-[#e5e5e5]/90">
             Aunque cada persona la vive de forma distinta, estas señales pueden
             indicar que algo no está bien. Si te identificás con varias, puede
             ser buen momento para buscar apoyo profesional.
@@ -39,15 +39,15 @@ export function DepressionSymptomsSection({
           {symptoms.map((symptom, index) => (
             <li
               key={index}
-              className="flex items-start gap-3 rounded-2xl bg-white ring-1 ring-emerald-100 p-5 shadow-sm"
+              className="flex items-start gap-3 rounded-2xl dark:rounded-md bg-white dark:bg-[#333] ring-1 ring-emerald-100 dark:ring-[#555] p-5 shadow-sm dark:shadow-none"
             >
               {/* Acento visual */}
-              <div className="grid size-9 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200">
+              <div className="grid size-9 shrink-0 place-items-center rounded-full dark:rounded-md bg-emerald-50 dark:bg-[#555] text-emerald-600 dark:text-[#e5e5e5] ring-1 ring-emerald-200 dark:ring-[#666]">
                 <CheckCircle className="h-5 w-5" aria-hidden />
               </div>
 
               {/* Texto */}
-              <p className="text-[15px] leading-relaxed text-zinc-800">
+              <p className="text-[15px] leading-relaxed text-zinc-800 dark:text-[#e5e5e5]">
                 {symptom}
               </p>
             </li>

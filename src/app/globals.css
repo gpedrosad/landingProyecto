@@ -14,8 +14,34 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1a1a;
+    --foreground: #e5e5e5;
+  }
+  
+  /* Estilos simples para modo oscuro */
+  body {
+    background: #1a1a1a !important;
+    color: #e5e5e5 !important;
+  }
+  
+  /* Simplificar elementos en modo oscuro */
+  * {
+    border-color: #333 !important;
+  }
+  
+  /* Reducir sombras y efectos en modo oscuro */
+  .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
+    box-shadow: none !important;
+  }
+  
+  /* Simplificar gradientes en modo oscuro */
+  .bg-gradient-to-b, .bg-gradient-to-t, .bg-gradient-to-br {
+    background: #2a2a2a !important;
+  }
+  
+  /* Simplificar bordes redondeados en modo oscuro */
+  .rounded-2xl, .rounded-3xl {
+    border-radius: 8px !important;
   }
 }
 

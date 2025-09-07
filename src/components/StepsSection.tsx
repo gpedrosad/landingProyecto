@@ -30,12 +30,12 @@ const steps: Step[] = [
 
 export function StepsSection() {
   return (
-    <section className="py-20 px-6 sm:px-12 lg:px-32 bg-[#ede0d6]">
+    <section className="py-20 px-6 sm:px-12 lg:px-32 bg-[#ede0d6] dark:bg-[#2a2a2a]">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-semibold text-[#2a2a2a] mb-6">
+        <h2 className="text-3xl sm:text-4xl font-semibold text-[#2a2a2a] dark:text-[#e5e5e5] mb-6">
           ¿Cómo empezar el proceso?
         </h2>
-        <p className="text-[#3f3f3f] mb-12">
+        <p className="text-[#3f3f3f] dark:text-[#e5e5e5]/90 mb-12">
           Iniciar terapia puede parecer difícil, pero está pensado para ser
           claro, accesible y acompañado desde el primer momento.
         </p>
@@ -44,13 +44,13 @@ export function StepsSection() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-sm ring-1 ring-[#e6d5c8] hover:shadow-md transition"
+              className="bg-white/95 dark:bg-[#333] backdrop-blur-sm rounded-2xl dark:rounded-md p-6 shadow-sm dark:shadow-none ring-1 ring-[#e6d5c8] dark:ring-[#555] hover:shadow-md dark:hover:shadow-none transition"
             >
               <div className="mb-4 flex justify-center">{step.icon}</div>
-              <h3 className="text-xl font-semibold text-[#2a2a2a] mb-2">
+              <h3 className="text-xl font-semibold text-[#2a2a2a] dark:text-[#e5e5e5] mb-2">
                 {step.title}
               </h3>
-              <p className="text-[#4b4b4b] text-sm">{step.description}</p>
+              <p className="text-[#4b4b4b] dark:text-[#e5e5e5]/90 text-sm">{step.description}</p>
             </div>
           ))}
         </div>

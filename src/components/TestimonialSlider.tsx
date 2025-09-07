@@ -88,7 +88,7 @@ export default function TestimonialSlider({
   const cardHeightCss = typeof cardHeight === "number" ? `${cardHeight}px` : cardHeight;
 
   return (
-    <section className="relative w-full py-20 px-4 text-zinc-900" style={{ background }}>
+    <section className="relative w-full py-20 px-4 text-zinc-900 dark:text-[#e5e5e5]" style={{ background }}>
       <div className="mx-auto max-w-5xl">
         <div className="relative">
           {/* Card */}
@@ -102,24 +102,24 @@ export default function TestimonialSlider({
               exit="exit"
               transition={{ duration: 0.35, ease: "easeOut" }}
               style={{ height: cardHeightCss }}
-              className="rounded-2xl bg-white/95 backdrop-blur-sm shadow-[0_8px_32px_-10px_rgba(0,0,0,0.35)] ring-1 ring-zinc-200/80"
+              className="rounded-2xl dark:rounded-md bg-white/95 dark:bg-[#333] backdrop-blur-sm shadow-[0_8px_32px_-10px_rgba(0,0,0,0.35)] dark:shadow-none ring-1 ring-zinc-200/80 dark:ring-[#555]"
             >
               <div className="flex h-full flex-col">
                 {/* Contenido principal: ocupa todo y hace scroll si es muy largo */}
                 <div className="flex-1 overflow-y-auto p-8 sm:p-12">
                   <figure className="mx-auto max-w-3xl">
-                    <blockquote className="text-[16px] sm:text-[17px] leading-7 sm:leading-8 text-zinc-800 whitespace-pre-line">
+                    <blockquote className="text-[16px] sm:text-[17px] leading-7 sm:leading-8 text-zinc-800 dark:text-[#e5e5e5] whitespace-pre-line">
                       {t.text}
                     </blockquote>
                   </figure>
                 </div>
 
                 {/* Firma */}
-                <div className="h-px w-full bg-zinc-200/70" />
+                <div className="h-px w-full bg-zinc-200/70 dark:bg-[#555]" />
                 <div className="flex items-center justify-end px-8 py-6 sm:px-12">
                   <div className="text-right">
-                    <p className="text-base font-semibold text-emerald-700">{t.name}</p>
-                    <p className="text-xs text-zinc-500">Testimonio</p>
+                    <p className="text-base font-semibold text-emerald-700 dark:text-[#e5e5e5]">{t.name}</p>
+                    <p className="text-xs text-zinc-500 dark:text-[#e5e5e5]/70">Testimonio</p>
                   </div>
                 </div>
               </div>
@@ -131,7 +131,7 @@ export default function TestimonialSlider({
             <button
               onClick={prev}
               aria-label="Anterior"
-              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-[#e6d5c8] shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-[#e6d5c8]/90"
+              className="pointer-events-auto grid size-10 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] shadow dark:shadow-none ring-1 ring-zinc-200 dark:ring-[#666] backdrop-blur hover:bg-[#e6d5c8]/90 dark:hover:bg-[#666]"
             >
               <svg
                 width="18"
@@ -149,7 +149,7 @@ export default function TestimonialSlider({
             <button
               onClick={next}
               aria-label="Siguiente"
-              className="pointer-events-auto grid size-10 place-items-center rounded-full bg-[#e6d5c8] shadow ring-1 ring-zinc-200 backdrop-blur hover:bg-[#e6d5c8]/90"
+              className="pointer-events-auto grid size-10 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] shadow dark:shadow-none ring-1 ring-zinc-200 dark:ring-[#666] backdrop-blur hover:bg-[#e6d5c8]/90 dark:hover:bg-[#666]"
             >
               <svg
                 width="18"
@@ -174,10 +174,10 @@ export default function TestimonialSlider({
               key={i}
               aria-label={`Ir al testimonio ${i + 1}`}
               onClick={() => goTo(i)}
-              className={`h-2.5 w-2.5 rounded-full transition-all ${
+              className={`h-2.5 w-2.5 rounded-full dark:rounded-md transition-all ${
                 i === index
-                  ? "bg-[#e6d5c8] ring-4 ring-[#e6d5c8]/30"
-                  : "bg-white/70 ring-4 ring-white/20 hover:ring-white/40"
+                  ? "bg-[#e6d5c8] dark:bg-[#e5e5e5] ring-4 ring-[#e6d5c8]/30 dark:ring-[#e5e5e5]/30"
+                  : "bg-white/70 dark:bg-[#555] ring-4 ring-white/20 dark:ring-[#555]/20 hover:ring-white/40 dark:hover:ring-[#555]/40"
               }`}
             />
           ))}

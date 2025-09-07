@@ -19,28 +19,28 @@ const depressionSymptoms = [
 
 export function SymptomsSection() {
   return (
-    <section className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c]" aria-labelledby="symptoms-intro-title">
+    <section className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]" aria-labelledby="symptoms-intro-title">
       {/* Degradado superior: violeta a verde */}
-      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#676EAB] to-[#215d4c] z-0 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#676EAB] to-[#215d4c] dark:bg-[#2a2a2a] z-0 pointer-events-none" />
 
       {/* Degradado inferior: verde a #e6d5c8 */}
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#e6d5c8] to-[#215d4c] z-0 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#e6d5c8] to-[#215d4c] dark:bg-[#2a2a2a] z-0 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-4xl space-y-16">
         {/* Intro agregado */}
         <div className="text-center">
-          <h2 id="symptoms-intro-title" className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white">
+          <h2 id="symptoms-intro-title" className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white dark:text-[#e5e5e5]">
             ¿Sientes que últimamente te cuesta disfrutar de lo que antes te hacía bien?
           </h2>
-          <p className="mt-3 text-lg sm:text-xl text-white/95">¿Que tu cabeza no descansa?</p>
-          <p className="text-lg sm:text-xl text-white/95">¿Que no tienes control sobre lo que te pasa?</p>
+          <p className="mt-3 text-lg sm:text-xl text-white/95 dark:text-[#e5e5e5]/95">¿Que tu cabeza no descansa?</p>
+          <p className="text-lg sm:text-xl text-white/95 dark:text-[#e5e5e5]/95">¿Que no tienes control sobre lo que te pasa?</p>
 
           <div className="mx-auto mt-6 max-w-3xl text-left sm:text-center">
-            <p className="text-white/90 leading-relaxed">
+            <p className="text-white/90 dark:text-[#e5e5e5]/90 leading-relaxed">
               La ansiedad y la depresión pueden sentirse como un torbellino que arrasa con tu vida. No solo viven en tu mente:
               también afectan a tu cuerpo, tus relaciones y la forma en que te miras a ti mism@.
             </p>
-            <p className="mt-4 text-white/90 leading-relaxed">
+            <p className="mt-4 text-white/90 dark:text-[#e5e5e5]/90 leading-relaxed">
               Puede que intentes seguir adelante, en modo piloto automático, pero en el fondo sabes que algo no anda bien.
             </p>
           </div>
@@ -49,13 +49,13 @@ export function SymptomsSection() {
         {/* Ansiedad */}
         <div>
           <div className="text-center">
-            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white">
+            <span className="inline-flex items-center rounded-full dark:rounded-md border border-white/20 dark:border-[#555] bg-white/10 dark:bg-[#333] px-3 py-1 text-xs font-medium text-white dark:text-[#e5e5e5]">
               — Según el Instituto Nacional de la Salud Mental —
             </span>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-white dark:text-[#e5e5e5]">
               Señales comunes de ansiedad
             </h2>
-            <p className="mt-3 text-white/90">
+            <p className="mt-3 text-white/90 dark:text-[#e5e5e5]/90">
               Si te identificas con varias de estas señales, puede ser un buen momento para buscar apoyo profesional.
             </p>
           </div>
@@ -64,12 +64,12 @@ export function SymptomsSection() {
             {anxietySymptoms.map((symptom, index) => (
               <li
                 key={`anx-${index}`}
-                className="flex items-start gap-3 rounded-2xl bg-white ring-1 ring-emerald-100 p-5 shadow-sm"
+                className="flex items-start gap-3 rounded-2xl dark:rounded-md bg-white dark:bg-[#333] ring-1 ring-emerald-100 dark:ring-[#555] p-5 shadow-sm dark:shadow-none"
               >
-                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e6d5c8] text-[#676EAB] ring-1 ring-[#dbc8bb]">
+                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] text-[#676EAB] dark:text-[#e5e5e5] ring-1 ring-[#dbc8bb] dark:ring-[#666]">
                   <CheckCircle className="h-5 w-5" aria-hidden />
                 </div>
-                <p className="text-[15px] leading-relaxed text-zinc-800">{symptom}</p>
+                <p className="text-[15px] leading-relaxed text-zinc-800 dark:text-[#e5e5e5]">{symptom}</p>
               </li>
             ))}
           </ul>
@@ -78,13 +78,13 @@ export function SymptomsSection() {
         {/* Depresión */}
         <div>
           <div className="text-center">
-            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white">
+            <span className="inline-flex items-center rounded-full dark:rounded-md border border-white/20 dark:border-[#555] bg-white/10 dark:bg-[#333] px-3 py-1 text-xs font-medium text-white dark:text-[#e5e5e5]">
               — Según la Asociación Americana de Psicología —
             </span>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-white dark:text-[#e5e5e5]">
               Señales comunes de depresión
             </h2>
-            <p className="mt-3 text-white/90">
+            <p className="mt-3 text-white/90 dark:text-[#e5e5e5]/90">
               Aunque cada persona lo vive de forma distinta, estas señales pueden indicar que algo no está bien. Si te
               identificas con varias, puede ser un buen momento para buscar apoyo profesional.
             </p>
@@ -94,12 +94,12 @@ export function SymptomsSection() {
             {depressionSymptoms.map((symptom, index) => (
               <li
                 key={`dep-${index}`}
-                className="flex items-start gap-3 rounded-2xl bg-white ring-1 ring-emerald-100 p-5 shadow-sm"
+                className="flex items-start gap-3 rounded-2xl dark:rounded-md bg-white dark:bg-[#333] ring-1 ring-emerald-100 dark:ring-[#555] p-5 shadow-sm dark:shadow-none"
               >
-                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e6d5c8] text-[#676EAB] ring-1 ring-[#dbc8bb]">
+                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] text-[#676EAB] dark:text-[#e5e5e5] ring-1 ring-[#dbc8bb] dark:ring-[#666]">
                   <CheckCircle className="h-5 w-5" aria-hidden />
                 </div>
-                <p className="text-[15px] leading-relaxed text-zinc-800">{symptom}</p>
+                <p className="text-[15px] leading-relaxed text-zinc-800 dark:text-[#e5e5e5]">{symptom}</p>
               </li>
             ))}
           </ul>
@@ -107,10 +107,10 @@ export function SymptomsSection() {
 
         {/* Invitación final */}
         <div className="text-center mt-6 sm:mt-10">
-          <p className="text-white/95 text-lg sm:text-xl">
+          <p className="text-white/95 dark:text-[#e5e5e5]/95 text-lg sm:text-xl">
             Pero… ¿qué pasa si te digo que puedes elegir cómo vivir?
           </p>
-          <div className="mx-auto mt-4 max-w-3xl space-y-3 text-white/90 leading-relaxed">
+          <div className="mx-auto mt-4 max-w-3xl space-y-3 text-white/90 dark:text-[#e5e5e5]/90 leading-relaxed">
             <p>No me malinterpretes: no puedes controlar el cambio climático, el tráfico de la ciudad, cómo reaccionan las personas, lo que piensen de ti o los imprevistos que interrumpen tu día.</p>
             <p>Lo que sí puedes elegir es cómo afrontarlo. Y no tienes por qué hacerlo sol@.</p>
             <p>Porque de eso se trata la terapia: de acompañarte en este proceso, paso a paso, hasta que vuelvas a sentir calma, confianza y ligereza en tu vida.</p>
@@ -119,7 +119,7 @@ export function SymptomsSection() {
           </div>
           <a
             href="/agendar"
-            className="mt-6 inline-flex items-center justify-center rounded-2xl bg-[#e6d5c8] px-6 py-3 font-semibold text-[#215d4c] shadow-sm ring-1 ring-[#dbc8bb] hover:shadow-md hover:bg-[#ecdccd] transition-colors"
+            className="mt-6 inline-flex items-center justify-center rounded-2xl dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] px-6 py-3 font-semibold text-[#215d4c] dark:text-[#e5e5e5] shadow-sm dark:shadow-none ring-1 ring-[#dbc8bb] dark:ring-[#666] hover:shadow-md dark:hover:shadow-none hover:bg-[#ecdccd] dark:hover:bg-[#666] transition-colors"
           >
             👉 Agendar primera sesión
           </a>

@@ -35,17 +35,16 @@ export function FAQSection() {
 
   return (
     <section
-      className="relative pt-40 pb-40 px-4 sm:px-12 lg:px-32"
-      style={{ backgroundColor: "#215d4c" }}
+      className="relative pt-40 pb-40 px-4 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]"
     >
       {/* Degradado superior hacia #ede0d6 */}
-      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-t from-[#215d4c] to-[#ede0d6] pointer-events-none z-0" />
+      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-t from-[#215d4c] to-[#ede0d6] dark:bg-[#2a2a2a] pointer-events-none z-0" />
 
       {/* Degradado inferior hacia #6571ac */}
-      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-[#215d4c] to-[#6571ac] pointer-events-none z-0" />
+      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-[#215d4c] to-[#6571ac] dark:bg-[#2a2a2a] pointer-events-none z-0" />
 
       <div className="relative z-10">
-        <h2 className="text-3xl font-semibold text-white text-center mb-8">
+        <h2 className="text-3xl font-semibold text-white dark:text-[#e5e5e5] text-center mb-8">
           Preguntas Frecuentes
         </h2>
 
@@ -55,15 +54,15 @@ export function FAQSection() {
             return (
               <div
                 key={idx}
-                className="rounded-xl overflow-hidden border border-white/20 bg-white/5 backdrop-blur-sm"
+                className="rounded-xl dark:rounded-md overflow-hidden border border-white/20 dark:border-[#555] bg-white/5 dark:bg-[#333] backdrop-blur-sm"
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="w-full flex justify-between items-center p-4 text-left hover:bg-white/10 transition"
+                  className="w-full flex justify-between items-center p-4 text-left hover:bg-white/10 dark:hover:bg-[#444] transition"
                 >
-                  <span className="text-white font-medium">{item.question}</span>
+                  <span className="text-white dark:text-[#e5e5e5] font-medium">{item.question}</span>
                   <span
-                    className="text-white/90 transform transition-transform duration-300 text-xl leading-none select-none"
+                    className="text-white/90 dark:text-[#e5e5e5]/90 transform transition-transform duration-300 text-xl leading-none select-none"
                     style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
                     aria-hidden
                   >
@@ -76,7 +75,7 @@ export function FAQSection() {
                     isOpen ? "max-h-20 py-4" : "max-h-0"
                   }`}
                 >
-                  <p className="text-white/90">{item.answer}</p>
+                  <p className="text-white/90 dark:text-[#e5e5e5]/90">{item.answer}</p>
                 </div>
               </div>
             );

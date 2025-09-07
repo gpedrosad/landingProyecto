@@ -34,9 +34,9 @@ export default function StickyWhatsAppButton({
         // Posición fija y centrado horizontal
         "fixed bottom-5 left-1/2 -translate-x-1/2 z-50",
         // Botón
-        "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3",
-        "bg-[#2f6657] text-white shadow-2xl shadow-black/15 hover:brightness-110 active:brightness-95 transition",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f4b41]",
+        "inline-flex items-center justify-center gap-2 rounded-full dark:rounded-md px-5 py-3",
+        "bg-[#2f6657] dark:bg-[#555] text-white dark:text-[#e5e5e5] shadow-2xl dark:shadow-none shadow-black/15 hover:brightness-110 dark:hover:bg-[#666] active:brightness-95 dark:active:bg-[#444] transition",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f4b41] dark:focus-visible:outline-[#666]",
         // Forzar contenido en una sola línea
         "whitespace-nowrap",
         className,
