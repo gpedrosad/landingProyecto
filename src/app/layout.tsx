@@ -79,6 +79,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "tu-codigo-de-verificacion-google",
+    other: {
+      "facebook-domain-verification": "bu8apl1tam1guunmfqv5hvzjiz46qt",
+    },
   },
 };
 
