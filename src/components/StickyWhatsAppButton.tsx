@@ -15,6 +15,20 @@ type Props = {
   iconOnly?: boolean;
 };
 
+// Tipado estricto para fbq (sin any)
+type FBQ = (
+  method: "track" | "trackCustom",
+  eventName: string,
+  params?: Record<string, unknown>,
+  options?: { eventID?: string }
+) => void;
+
+declare global {
+  interface Window {
+    fbq?: FBQ;
+  }
+}
+
 export default function StickyWhatsAppButton({
   phone = "+56 9 7964 3558",
   text = "Hola, me gustaría agendar una sesión.",
@@ -26,9 +40,9 @@ export default function StickyWhatsAppButton({
 
   const handleClick = () => {
     try {
-      const fbq = (window as any)?.fbq;
+      const fbq = typeof window !== "undefined" ? window.fbq : undefined;
       if (typeof fbq === "function") {
-        const eventID =
+        const eventID: string =
           typeof crypto !== "undefined" && "randomUUID" in crypto
             ? crypto.randomUUID()
             : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
@@ -45,7 +59,7 @@ export default function StickyWhatsAppButton({
           { eventID }
         );
         // Si usás CAPI, podés enviar este eventID a tu backend para deduplicar
-        // fetch("/api/fb-capi", { method: "POST", body: JSON.stringify({ eventID, phone: normalized }) })
+        // await fetch("/api/fb-capi", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ eventID, phone: normalized }) });
       }
     } catch {
       // silencioso: no rompe la navegación si fbq no está

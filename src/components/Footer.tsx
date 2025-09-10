@@ -1,8 +1,11 @@
 // src/components/Footer.tsx
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Instagram } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import React from "react";
 
 type FooterProps = {
   logoSrc?: string;
@@ -12,6 +15,20 @@ type FooterProps = {
   instagram?: { handle: string; url: string };
 };
 
+// Tipado estricto para fbq
+type FBQ = (
+  method: "track" | "trackCustom",
+  eventName: string,
+  params?: Record<string, unknown>,
+  options?: { eventID?: string }
+) => void;
+
+declare global {
+  interface Window {
+    fbq?: FBQ;
+  }
+}
+
 const Footer: React.FC<FooterProps> = ({
   logoSrc = "/logo3.png",
   name = "Florescencia",
@@ -19,9 +36,29 @@ const Footer: React.FC<FooterProps> = ({
   instagram = { handle: "florescencia.cl", url: "https://instagram.com/florescencia.cl" },
 }) => {
   const normalizedPhone = phone.replace(/[^\d]/g, "");
-  const waHref = `https://wa.me/${normalizedPhone}?text=${encodeURIComponent(
-    "Hola, me gustaría agendar una sesión."
-  )}`;
+  const message = "Hola, me gustaría agendar una sesión.";
+  const waHref = `https://wa.me/${normalizedPhone}?text=${encodeURIComponent(message)}`;
+
+  const trackWsEnviado = (component: string) => {
+    if (typeof window === "undefined" || typeof window.fbq !== "function") return;
+
+    const eventID =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
+
+    window.fbq("trackCustom", "WsEnviado", {
+      destination: "whatsapp",
+      phone: normalizedPhone,
+      component,
+      page: typeof window !== "undefined" ? window.location.pathname : "/",
+    }, { eventID });
+  };
+
+  const handleWhatsAppClick = () => {
+    trackWsEnviado("Footer");
+    // navegación se hace por el <a> (no prevenimos)
+  };
 
   return (
     <footer className="relative bg-[#6571ac] dark:bg-[#2a2a2a] text-white dark:text-[#e5e5e5] pt-28 pb-16">
@@ -32,13 +69,7 @@ const Footer: React.FC<FooterProps> = ({
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         {logoSrc ? (
           <div className="mx-auto mb-6 h-20 w-44 relative">
-            <Image
-              src={logoSrc}
-              alt={`${name} logo`}
-              fill
-              priority
-              className="object-contain"
-            />
+            <Image src={logoSrc} alt={`${name} logo`} fill priority className="object-contain" />
           </div>
         ) : (
           <h2 className="mb-2 text-3xl font-semibold tracking-wide">{name}</h2>
@@ -50,6 +81,7 @@ const Footer: React.FC<FooterProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contactar por WhatsApp"
+            onClick={handleWhatsAppClick}
             className="inline-flex items-center gap-2 rounded-full dark:rounded-md bg-white/10 dark:bg-[#333] px-4 py-2 text-sm font-medium tracking-wide hover:bg-white/15 dark:hover:bg-[#444] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/60 dark:focus-visible:outline-[#555]"
           >
             <FaWhatsapp className="h-5 w-5" aria-hidden />

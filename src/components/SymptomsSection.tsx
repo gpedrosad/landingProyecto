@@ -24,21 +24,40 @@ const WA_PHONE = "56979643558"; // +56 9 7964 3558 normalizado
 const WA_TEXT = encodeURIComponent("Hola, me gustaría agendar una sesión.");
 const WA_LINK = `https://wa.me/${WA_PHONE}?text=${WA_TEXT}`;
 
+// Tipado estricto para fbq
+type FBQ = (
+  method: "track" | "trackCustom",
+  eventName: string,
+  params?: Record<string, unknown>,
+  options?: { eventID?: string }
+) => void;
+
+declare global {
+  interface Window {
+    fbq?: FBQ;
+  }
+}
+
 export function SymptomsSection() {
   const handleWhatsAppClick = () => {
-    try {
-      // Dispara evento custom del Pixel
-      if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
-        (window as any).fbq("trackCustom", "WsEnviado", {
-          destination: "whatsapp",
-          phone: WA_PHONE,
-          page: window.location.pathname,
-        });
-      }
-    } catch {
-      // Silencioso: no rompe la navegación si fbq no está
-    }
-    // No prevenimos la navegación: el <a> se abrirá en nueva pestaña
+    if (typeof window === "undefined" || typeof window.fbq !== "function") return;
+
+    const eventID =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.floor(Math.random() * 1_000_000)}`;
+
+    window.fbq(
+      "trackCustom",
+      "WsEnviado",
+      {
+        destination: "whatsapp",
+        phone: WA_PHONE,
+        page: typeof window !== "undefined" ? window.location.pathname : "/",
+      },
+      { eventID }
+    );
+    // No prevenimos la navegación: el <a> abre WhatsApp en nueva pestaña
   };
 
   return (
