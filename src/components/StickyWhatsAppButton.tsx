@@ -16,7 +16,7 @@ type Props = {
 };
 
 export default function StickyWhatsAppButton({
-  phone = "+56 9 7877 1520",
+  phone = "+56 9 7964 3558",
   text = "Hola, me gustaría agendar una sesión.",
   className = "",
   iconOnly = false,
@@ -24,12 +24,41 @@ export default function StickyWhatsAppButton({
   const normalized = phone.replace(/[^\d]/g, ""); // solo dígitos para wa.me
   const href = `https://wa.me/${normalized}?text=${encodeURIComponent(text)}`;
 
+  const handleClick = () => {
+    try {
+      const fbq = (window as any)?.fbq;
+      if (typeof fbq === "function") {
+        const eventID =
+          typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? crypto.randomUUID()
+            : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
+        fbq(
+          "trackCustom",
+          "WsEnviado",
+          {
+            destination: "whatsapp",
+            phone: normalized,
+            text,
+            component: "StickyWhatsAppButton",
+          },
+          { eventID }
+        );
+        // Si usás CAPI, podés enviar este eventID a tu backend para deduplicar
+        // fetch("/api/fb-capi", { method: "POST", body: JSON.stringify({ eventID, phone: normalized }) })
+      }
+    } catch {
+      // silencioso: no rompe la navegación si fbq no está
+    }
+  };
+
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Agendar por WhatsApp"
+      onClick={handleClick}
       className={[
         // Posición fija y centrado horizontal
         "fixed bottom-5 left-1/2 -translate-x-1/2 z-50",

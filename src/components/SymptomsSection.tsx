@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import { CheckCircle } from "lucide-react";
 
 const anxietySymptoms = [
@@ -17,9 +20,32 @@ const depressionSymptoms = [
   "Pensamientos sobre la muerte o el suicidio.",
 ];
 
+const WA_PHONE = "56979643558"; // +56 9 7964 3558 normalizado
+const WA_TEXT = encodeURIComponent("Hola, me gustaría agendar una sesión.");
+const WA_LINK = `https://wa.me/${WA_PHONE}?text=${WA_TEXT}`;
+
 export function SymptomsSection() {
+  const handleWhatsAppClick = () => {
+    try {
+      // Dispara evento custom del Pixel
+      if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
+        (window as any).fbq("trackCustom", "WsEnviado", {
+          destination: "whatsapp",
+          phone: WA_PHONE,
+          page: window.location.pathname,
+        });
+      }
+    } catch {
+      // Silencioso: no rompe la navegación si fbq no está
+    }
+    // No prevenimos la navegación: el <a> se abrirá en nueva pestaña
+  };
+
   return (
-    <section className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]" aria-labelledby="symptoms-intro-title">
+    <section
+      className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]"
+      aria-labelledby="symptoms-intro-title"
+    >
       {/* Degradado superior: violeta a verde */}
       <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#676EAB] to-[#215d4c] dark:bg-[#2a2a2a] z-0 pointer-events-none" />
 
@@ -29,16 +55,21 @@ export function SymptomsSection() {
       <div className="relative z-10 mx-auto max-w-4xl space-y-16">
         {/* Intro agregado */}
         <div className="text-center">
-          <h2 id="symptoms-intro-title" className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white dark:text-[#e5e5e5]">
+          <h2
+            id="symptoms-intro-title"
+            className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white dark:text-[#e5e5e5]"
+          >
             ¿Sientes que últimamente te cuesta disfrutar de lo que antes te hacía bien?
           </h2>
           <p className="mt-3 text-lg sm:text-xl text-white/95 dark:text-[#e5e5e5]/95">¿Que tu cabeza no descansa?</p>
-          <p className="text-lg sm:text-xl text-white/95 dark:text-[#e5e5e5]/95">¿Que no tienes control sobre lo que te pasa?</p>
+          <p className="text-lg sm:text-xl text-white/95 dark:text-[#e5e5e5]/95">
+            ¿Que no tienes control sobre lo que te pasa?
+          </p>
 
           <div className="mx-auto mt-6 max-w-3xl text-left sm:text-center">
             <p className="text-white/90 dark:text-[#e5e5e5]/90 leading-relaxed">
-              La ansiedad y la depresión pueden sentirse como un torbellino que arrasa con tu vida. No solo viven en tu mente:
-              también afectan a tu cuerpo, tus relaciones y la forma en que te miras a ti mism@.
+              La ansiedad y la depresión pueden sentirse como un torbellino que arrasa con tu vida. No solo viven en tu
+              mente: también afectan a tu cuerpo, tus relaciones y la forma en que te miras a ti mism@.
             </p>
             <p className="mt-4 text-white/90 dark:text-[#e5e5e5]/90 leading-relaxed">
               Puede que intentes seguir adelante, en modo piloto automático, pero en el fondo sabes que algo no anda bien.
@@ -111,20 +142,31 @@ export function SymptomsSection() {
             Pero… ¿qué pasa si te digo que puedes elegir cómo vivir?
           </p>
           <div className="mx-auto mt-4 max-w-3xl space-y-3 text-white/90 dark:text-[#e5e5e5]/90 leading-relaxed">
-            <p>No me malinterpretes: no puedes controlar el cambio climático, el tráfico de la ciudad, cómo reaccionan las personas, lo que piensen de ti o los imprevistos que interrumpen tu día.</p>
+            <p>
+              No me malinterpretes: no puedes controlar el cambio climático, el tráfico de la ciudad, cómo reaccionan las
+              personas, lo que piensen de ti o los imprevistos que interrumpen tu día.
+            </p>
             <p>Lo que sí puedes elegir es cómo afrontarlo. Y no tienes por qué hacerlo sol@.</p>
-            <p>Porque de eso se trata la terapia: de acompañarte en este proceso, paso a paso, hasta que vuelvas a sentir calma, confianza y ligereza en tu vida.</p>
+            <p>
+              Porque de eso se trata la terapia: de acompañarte en este proceso, paso a paso, hasta que vuelvas a sentir
+              calma, confianza y ligereza en tu vida.
+            </p>
             <p>Tu día a día puede (y merece) ser disfrutado. Vivir de manera plena y tranquila sí es una opción.</p>
             <p>Y estás a un click de dar el primer paso. ¿List@ para empezar?</p>
           </div>
+
+          {/* Botón: dispara WsEnviado y abre WhatsApp */}
           <a
-            href="/agendar"
+            href={WA_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleWhatsAppClick}
+            aria-label="Abrir WhatsApp para agendar primera sesión"
             className="mt-6 inline-flex items-center justify-center rounded-2xl dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] px-6 py-3 font-semibold text-[#215d4c] dark:text-[#e5e5e5] shadow-sm dark:shadow-none ring-1 ring-[#dbc8bb] dark:ring-[#666] hover:shadow-md dark:hover:shadow-none hover:bg-[#ecdccd] dark:hover:bg-[#666] transition-colors"
           >
-            👉 Agendar primera sesión
+            👉 Agendar por WhatsApp
           </a>
         </div>
-
       </div>
     </section>
   );
