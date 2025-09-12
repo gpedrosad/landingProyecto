@@ -21,7 +21,7 @@ export default function Home() {
 
       {/* Botón fijo de WhatsApp */}
       <StickyWhatsAppButton
-        phone="+56 9 7877 1520"
+        phone="+56 9 7964 3558"
         text="Hola, me gustaría agendar una sesión."
       />
     </div>
