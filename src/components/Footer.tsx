@@ -35,11 +35,19 @@ const Footer: React.FC<FooterProps> = ({
   phone = "+56 9 7964 3558",
   instagram = { handle: "florescencia.cl", url: "https://instagram.com/ps.florescencia" },
 }) => {
+  // WhatsApp principal (negocio/sitio)
   const normalizedPhone = phone.replace(/[^\d]/g, "");
   const message = "Hola, me gustaría agendar una sesión.";
   const waHref = `https://wa.me/${normalizedPhone}?text=${encodeURIComponent(message)}`;
 
-  const trackWsEnviado = (component: string) => {
+  // WhatsApp autor (Gonzalo Pedrosa)
+  const authorName = "Gonzalo Pedrosa";
+  const authorPhone = "+56968257817";
+  const authorNormalizedPhone = authorPhone.replace(/[^\d]/g, "");
+  const authorMsg = "Hola Gonzalo, vi el sitio y quisiera hablar.";
+  const waAuthorHref = `https://wa.me/${authorNormalizedPhone}?text=${encodeURIComponent(authorMsg)}`;
+
+  const trackWsEnviado = (component: string, phoneToTrack?: string) => {
     if (typeof window === "undefined" || typeof window.fbq !== "function") return;
 
     const eventID =
@@ -47,17 +55,25 @@ const Footer: React.FC<FooterProps> = ({
         ? crypto.randomUUID()
         : `${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
 
-    window.fbq("trackCustom", "WsEnviado", {
-      destination: "whatsapp",
-      phone: normalizedPhone,
-      component,
-      page: typeof window !== "undefined" ? window.location.pathname : "/",
-    }, { eventID });
+    window.fbq(
+      "trackCustom",
+      "WsEnviado",
+      {
+        destination: "whatsapp",
+        phone: (phoneToTrack ?? normalizedPhone) || "desconocido",
+        component,
+        page: typeof window !== "undefined" ? window.location.pathname : "/",
+      },
+      { eventID }
+    );
   };
 
   const handleWhatsAppClick = () => {
     trackWsEnviado("Footer");
-    // navegación se hace por el <a> (no prevenimos)
+  };
+
+  const handleAuthorWhatsAppClick = () => {
+    trackWsEnviado("Footer-Author", authorNormalizedPhone);
   };
 
   return (
@@ -98,6 +114,23 @@ const Footer: React.FC<FooterProps> = ({
             <Instagram className="h-5 w-5" aria-hidden />
             <span>@{instagram.handle.replace(/^@/, "")}</span>
           </Link>
+        </div>
+
+        {/* Línea autor con mini icono de WhatsApp */}
+        <div className="mt-6 text-xs text-white/90 dark:text-[#e5e5e5]/90">
+          Creado por{" "}
+          <a
+            href={waAuthorHref}
+            onClick={handleAuthorWhatsAppClick}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 underline underline-offset-4 decoration-white/60 hover:decoration-white"
+            title={`Contactar a ${authorName} por WhatsApp`}
+          >
+            {/* mini ícono */}
+            <span>{authorName}</span>
+            <FaWhatsapp className="h-3.5 w-3.5 opacity-90 -mt-[1px]" aria-hidden />
+          </a>
         </div>
 
         <div className="mt-10 border-t border-white/20 dark:border-[#555] pt-4 text-xs leading-relaxed">
