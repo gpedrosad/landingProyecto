@@ -2,14 +2,15 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { sectionFade } from "./sectionFade";
 
 export default function AboutArantza() {
   return (
-    <section className="relative w-full bg-[#bbb491] dark:bg-[#2a2a2a]">
-      {/* Degradado inferior: #bbb491 a violeta */}
-      <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-t from-[#676EAB] to-[#bbb491] dark:bg-[#2a2a2a] z-0 pointer-events-none" />
-
-      <div className="relative z-10 mx-auto max-w-3xl px-6 py-10 sm:py-14">
+    <section
+      className="section-fade relative w-full bg-[#bbb491] dark:bg-[#2a2a2a]"
+      style={sectionFade("#bbb491", { bottom: { color: "#676EAB" } })}
+    >
+      <div className="relative z-10 mx-auto max-w-3xl px-6 pt-10 pb-20 sm:pt-14 sm:pb-24">
         {/* Logo */}
         <div className="flex justify-center">
           <div className="relative h-24 w-[260px] sm:h-20 sm:w-[320px]">
@@ -119,14 +120,16 @@ export default function AboutArantza() {
           </blockquote>
         </motion.div>
 
-        {/* Estilos locales: justificado y guiones automáticos */}
+        {/* Estilos locales: justificado y guiones automáticos desde sm (en móvil queda a la izquierda) */}
         <style jsx>{`
-          .about-rich p {
-            text-align: justify;
-            text-justify: inter-word;
-            -webkit-hyphens: auto;
-            -ms-hyphens: auto;
-            hyphens: auto;
+          @media (min-width: 640px) {
+            .about-rich p {
+              text-align: justify;
+              text-justify: inter-word;
+              -webkit-hyphens: auto;
+              -ms-hyphens: auto;
+              hyphens: auto;
+            }
           }
         `}</style>
       </div>

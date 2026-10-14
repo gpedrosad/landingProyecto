@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { sectionFade } from "./sectionFade";
 
 const faqs = [
   {
@@ -35,14 +36,12 @@ export function FAQSection() {
 
   return (
     <section
-      className="relative pt-40 pb-40 px-4 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]"
+      className="section-fade relative pt-40 pb-40 px-4 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]"
+      style={sectionFade("#215d4c", {
+        top: { color: "#ede0d6" },
+        bottom: { color: "#676EAB", space: "oklch" },
+      })}
     >
-      {/* Degradado superior hacia #ede0d6 */}
-      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-t from-[#215d4c] to-[#ede0d6] dark:bg-[#2a2a2a] pointer-events-none z-0" />
-
-      {/* Degradado inferior hacia #6571ac */}
-      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-[#215d4c] to-[#6571ac] dark:bg-[#2a2a2a] pointer-events-none z-0" />
-
       <div className="relative z-10">
         <h2 className="text-3xl font-semibold text-white dark:text-[#e5e5e5] text-center mb-8">
           Preguntas Frecuentes
@@ -70,12 +69,15 @@ export function FAQSection() {
                   </span>
                 </button>
 
+                {/* grid-rows 0fr → 1fr anima a la altura real del contenido */}
                 <div
-                  className={`px-4 overflow-hidden transition-all duration-300 ${
-                    isOpen ? "max-h-20 py-4" : "max-h-0"
+                  className={`grid transition-all duration-300 ${
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   }`}
                 >
-                  <p className="text-white/90 dark:text-[#e5e5e5]/90">{item.answer}</p>
+                  <div className="overflow-hidden">
+                    <p className="px-4 pb-4 text-white/90 dark:text-[#e5e5e5]/90">{item.answer}</p>
+                  </div>
                 </div>
               </div>
             );

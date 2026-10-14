@@ -2,6 +2,8 @@
 
 import React from "react";
 import { CheckCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { sectionFade } from "./sectionFade";
 
 const anxietySymptoms = [
   "Sensación de inquietud, tensión o nerviosismo.",
@@ -62,15 +64,13 @@ export function SymptomsSection() {
 
   return (
     <section
-      className="relative py-16 px-6 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]"
+      className="section-fade relative pt-16 pb-32 px-6 sm:px-12 lg:px-32 bg-[#215d4c] dark:bg-[#2a2a2a]"
       aria-labelledby="symptoms-intro-title"
+      style={sectionFade("#215d4c", {
+        top: { color: "#676EAB", space: "oklch" },
+        bottom: { color: "#ede0d6" },
+      })}
     >
-      {/* Degradado superior: violeta a verde */}
-      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#676EAB] to-[#215d4c] dark:bg-[#2a2a2a] z-0 pointer-events-none" />
-
-      {/* Degradado inferior: verde a #e6d5c8 */}
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#e6d5c8] to-[#215d4c] dark:bg-[#2a2a2a] z-0 pointer-events-none" />
-
       <div className="relative z-10 mx-auto max-w-4xl space-y-16">
         {/* Intro agregado */}
         <div className="text-center">
@@ -114,7 +114,7 @@ export function SymptomsSection() {
             {anxietySymptoms.map((symptom, index) => (
               <li
                 key={`anx-${index}`}
-                className="flex items-start gap-3 rounded-2xl dark:rounded-md bg-white dark:bg-[#333] ring-1 ring-emerald-100 dark:ring-[#555] p-5 shadow-sm dark:shadow-none"
+                className="flex items-start gap-3 rounded-2xl dark:rounded-md bg-white dark:bg-[#333] ring-1 ring-[#e6d5c8] dark:ring-[#555] p-5 shadow-sm dark:shadow-none"
               >
                 <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] text-[#676EAB] dark:text-[#e5e5e5] ring-1 ring-[#dbc8bb] dark:ring-[#666]">
                   <CheckCircle className="h-5 w-5" aria-hidden />
@@ -144,7 +144,7 @@ export function SymptomsSection() {
             {depressionSymptoms.map((symptom, index) => (
               <li
                 key={`dep-${index}`}
-                className="flex items-start gap-3 rounded-2xl dark:rounded-md bg-white dark:bg-[#333] ring-1 ring-emerald-100 dark:ring-[#555] p-5 shadow-sm dark:shadow-none"
+                className="flex items-start gap-3 rounded-2xl dark:rounded-md bg-white dark:bg-[#333] ring-1 ring-[#e6d5c8] dark:ring-[#555] p-5 shadow-sm dark:shadow-none"
               >
                 <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] text-[#676EAB] dark:text-[#e5e5e5] ring-1 ring-[#dbc8bb] dark:ring-[#666]">
                   <CheckCircle className="h-5 w-5" aria-hidden />
@@ -181,9 +181,10 @@ export function SymptomsSection() {
             rel="noopener noreferrer"
             onClick={handleWhatsAppClick}
             aria-label="Abrir WhatsApp para agendar primera sesión"
-            className="mt-6 inline-flex items-center justify-center rounded-2xl dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] px-6 py-3 font-semibold text-[#215d4c] dark:text-[#e5e5e5] shadow-sm dark:shadow-none ring-1 ring-[#dbc8bb] dark:ring-[#666] hover:shadow-md dark:hover:shadow-none hover:bg-[#ecdccd] dark:hover:bg-[#666] transition-colors"
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-2xl dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] px-6 py-3 font-semibold text-[#215d4c] dark:text-[#e5e5e5] shadow-sm dark:shadow-none ring-1 ring-[#dbc8bb] dark:ring-[#666] hover:shadow-md dark:hover:shadow-none hover:bg-[#ecdccd] dark:hover:bg-[#666] transition-colors"
           >
-            👉 Agendar por WhatsApp
+            <FaWhatsapp className="h-5 w-5" aria-hidden />
+            Agendar por WhatsApp
           </a>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { CalendarCheck, MessageCircle, HeartHandshake } from "lucide-react";
+import { sectionFade } from "./sectionFade";
 
 type Step = {
   title: string;
@@ -12,25 +13,28 @@ const steps: Step[] = [
     title: "Agenda tu primera sesión",
     description:
       "El primer paso es tomar la decisión. El valor es de $30.000 e incluye un espacio personalizado para ti.",
-    icon: <CalendarCheck className="w-8 h-8 text-[#6871a9]" />,
+    icon: <CalendarCheck className="w-8 h-8 text-[#676EAB]" />,
   },
   {
     title: "Conversemos sobre cómo te sientes",
     description:
       "Durante la sesión podrás expresarte con tranquilidad sobre lo que estás atravesando.",
-    icon: <MessageCircle className="w-8 h-8 text-[#6871a9]" />,
+    icon: <MessageCircle className="w-8 h-8 text-[#676EAB]" />,
   },
   {
     title: "Te acompaño paso a paso",
     description:
       "Trabajaremos juntos, a tu ritmo, en un entorno seguro, empático y sin juicios.",
-    icon: <HeartHandshake className="w-8 h-8 text-[#6871a9]" />,
+    icon: <HeartHandshake className="w-8 h-8 text-[#676EAB]" />,
   },
 ];
 
 export function StepsSection() {
   return (
-    <section className="py-20 px-6 sm:px-12 lg:px-32 bg-[#ede0d6] dark:bg-[#2a2a2a]">
+    <section
+      className="section-fade py-20 px-6 sm:px-12 lg:px-32 bg-[#ede0d6] dark:bg-[#2a2a2a]"
+      style={sectionFade("#ede0d6", { top: { color: "#215d4c" }, bottom: { color: "#215d4c" } })}
+    >
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-semibold text-[#2a2a2a] dark:text-[#e5e5e5] mb-6">
           ¿Cómo empezar el proceso?

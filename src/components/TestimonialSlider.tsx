@@ -2,7 +2,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, type PanInfo } from "framer-motion";
+import { sectionFade } from "./sectionFade";
 
 type Testimonial = {
   name: string;
@@ -44,22 +45,53 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
+// Tiempo de lectura por slide: ~60ms por carácter, entre 8 y 40 segundos
+const readingTime = (text: string) => Math.min(40_000, Math.max(8_000, text.length * 60));
+
+function TestimonialContent({ t }: { t: Testimonial }) {
+  return (
+    <figure className="flex h-full flex-col justify-center">
+      <span aria-hidden className="block h-6 sm:h-8 font-serif text-5xl sm:text-6xl leading-none text-[#676EAB]/35 select-none">
+        “
+      </span>
+      <blockquote className="mt-1 sm:mt-2 space-y-3 sm:space-y-4 text-[15px] leading-6 sm:text-[17px] sm:leading-8 text-zinc-700 dark:text-[#e5e5e5] text-pretty">
+        {t.text.split("\n\n").map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+      </blockquote>
+      <figcaption className="mt-5 sm:mt-6 flex items-center gap-3 border-t border-zinc-200/70 dark:border-[#555] pt-4 sm:pt-5">
+        <span
+          aria-hidden
+          className="grid size-10 shrink-0 place-items-center rounded-full bg-[#215d4c] dark:bg-[#555] font-semibold text-white"
+        >
+          {t.name.charAt(0)}
+        </span>
+        <span>
+          <span className="block font-semibold text-[#215d4c] dark:text-[#e5e5e5]">{t.name}</span>
+          <span className="block text-xs text-zinc-500 dark:text-[#e5e5e5]/70">Testimonio</span>
+        </span>
+      </figcaption>
+    </figure>
+  );
+}
+
 /**
- * Slider de testimonios sin foto, con texto dominante y altura generosa.
+ * Slider de testimonios.
+ *
+ * La tarjeta toma la altura del testimonio más largo (todos se renderizan
+ * invisibles en la misma celda de la grilla), así no salta ni necesita scroll
+ * interno. En móvil se puede deslizar con el dedo. El autoplay da tiempo según
+ * el largo del texto, se pausa con hover y se detiene al interactuar.
  *
  * Props:
- * - background: color/gradiente CSS para el fondo (default: '#676EAB').
- * - cardHeight: altura de la tarjeta (px o string CSS, default: 520).
+ * - background: color de fondo de la sección (default: '#676EAB').
  */
-export default function TestimonialSlider({
-  background = "#676EAB",
-  cardHeight = 520,
-}: {
-  background?: string;
-  cardHeight?: number | string;
-}) {
+export default function TestimonialSlider({ background = "#676EAB" }: { background?: string }) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 izq, 1 der
+  const [paused, setPaused] = useState(false);
+  const [userControlled, setUserControlled] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   const goTo = (i: number) => {
     setDirection(i > index ? 1 : -1);
@@ -67,120 +99,124 @@ export default function TestimonialSlider({
   };
   const next = () => goTo(index + 1);
   const prev = () => goTo(index - 1);
+  const takeControl = (action: () => void) => () => {
+    setUserControlled(true);
+    action();
+  };
+
+  const t = TESTIMONIALS[index];
 
   // autoplay
   useEffect(() => {
-    const id = setInterval(next, 6500);
-    return () => clearInterval(id);
+    if (paused || userControlled || reduceMotion) return;
+    const id = setTimeout(next, readingTime(t.text));
+    return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+  }, [index, paused, userControlled, reduceMotion]);
 
   const variants = useMemo(
     () => ({
-      enter: (dir: number) => ({ x: dir > 0 ? 40 : -40, opacity: 0 }),
+      enter: (dir: number) => ({ x: dir > 0 ? 24 : -24, opacity: 0 }),
       center: { x: 0, opacity: 1 },
-      exit: (dir: number) => ({ x: dir > 0 ? -40 : 40, opacity: 0 }),
+      exit: (dir: number) => ({ x: dir > 0 ? -24 : 24, opacity: 0 }),
     }),
     []
   );
 
-  const t = TESTIMONIALS[index];
-  const cardHeightCss = typeof cardHeight === "number" ? `${cardHeight}px` : cardHeight;
+  const handleDragEnd = (_: unknown, info: PanInfo) => {
+    const swipe = info.offset.x + info.velocity.x * 0.2;
+    if (swipe < -60) takeControl(next)();
+    else if (swipe > 60) takeControl(prev)();
+  };
+
+  const arrowClass =
+    "grid size-11 shrink-0 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] text-[#215d4c] dark:text-[#e5e5e5] shadow dark:shadow-none ring-1 ring-white/40 dark:ring-[#666] transition hover:bg-white active:scale-95 dark:hover:bg-[#666]";
 
   return (
-    <section className="relative w-full py-20 px-4 text-zinc-900 dark:text-[#e5e5e5]" style={{ background }}>
-      <div className="mx-auto max-w-5xl">
-        <div className="relative">
-          {/* Card */}
-          <AnimatePresence custom={direction} mode="wait">
-            <motion.article
-              key={index}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              style={{ height: cardHeightCss }}
-              className="rounded-2xl dark:rounded-md bg-white/95 dark:bg-[#333] backdrop-blur-sm shadow-[0_8px_32px_-10px_rgba(0,0,0,0.35)] dark:shadow-none ring-1 ring-zinc-200/80 dark:ring-[#555]"
-            >
-              <div className="flex h-full flex-col">
-                {/* Contenido principal: ocupa todo y hace scroll si es muy largo */}
-                <div className="flex-1 overflow-y-auto p-8 sm:p-12">
-                  <figure className="mx-auto max-w-3xl">
-                    <blockquote className="text-[16px] sm:text-[17px] leading-7 sm:leading-8 text-zinc-800 dark:text-[#e5e5e5] whitespace-pre-line">
-                      {t.text}
-                    </blockquote>
-                  </figure>
-                </div>
-
-                {/* Firma */}
-                <div className="h-px w-full bg-zinc-200/70 dark:bg-[#555]" />
-                <div className="flex items-center justify-end px-8 py-6 sm:px-12">
-                  <div className="text-right">
-                    <p className="text-base font-semibold text-emerald-700 dark:text-[#e5e5e5]">{t.name}</p>
-                    <p className="text-xs text-zinc-500 dark:text-[#e5e5e5]/70">Testimonio</p>
-                  </div>
-                </div>
+    <section
+      className="section-fade relative w-full py-20 px-4 text-zinc-900 dark:text-[#e5e5e5]"
+      style={{
+        backgroundColor: background,
+        ...sectionFade(background, {
+          top: { color: "#bbb491" },
+          bottom: { color: "#215d4c", space: "oklch" },
+        }),
+      }}
+      aria-roledescription="carrusel"
+      aria-label="Testimonios"
+    >
+      <div
+        className="mx-auto max-w-3xl"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocus={() => setPaused(true)}
+        onBlur={() => setPaused(false)}
+      >
+        {/* Card */}
+        <motion.article
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.15}
+          onDragEnd={handleDragEnd}
+          className="cursor-grab active:cursor-grabbing overflow-hidden rounded-3xl dark:rounded-md bg-white/95 dark:bg-[#333] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.35)] dark:shadow-none ring-1 ring-white/60 dark:ring-[#555] px-5 py-6 sm:p-10"
+        >
+          <div className="grid">
+            {/* Medidores invisibles: la celda toma la altura del testimonio más largo */}
+            {TESTIMONIALS.map((item) => (
+              <div key={item.name} aria-hidden className="invisible col-start-1 row-start-1">
+                <TestimonialContent t={item} />
               </div>
-            </motion.article>
-          </AnimatePresence>
+            ))}
 
-          {/* Controles */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2">
-            <button
-              onClick={prev}
-              aria-label="Anterior"
-              className="pointer-events-auto grid size-10 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] shadow dark:shadow-none ring-1 ring-zinc-200 dark:ring-[#666] backdrop-blur hover:bg-[#e6d5c8]/90 dark:hover:bg-[#666]"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <AnimatePresence custom={direction} mode="wait" initial={false}>
+              <motion.div
+                key={index}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="col-start-1 row-start-1"
+                aria-live={userControlled ? "polite" : "off"}
               >
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-            <button
-              onClick={next}
-              aria-label="Siguiente"
-              className="pointer-events-auto grid size-10 place-items-center rounded-full dark:rounded-md bg-[#e6d5c8] dark:bg-[#555] shadow dark:shadow-none ring-1 ring-zinc-200 dark:ring-[#666] backdrop-blur hover:bg-[#e6d5c8]/90 dark:hover:bg-[#666]"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+                <TestimonialContent t={t} />
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </div>
+        </motion.article>
 
-        {/* Dots */}
-        <div className="mt-8 flex justify-center gap-2">
-          {TESTIMONIALS.map((_, i) => (
-            <button
-              key={i}
-              aria-label={`Ir al testimonio ${i + 1}`}
-              onClick={() => goTo(i)}
-              className={`h-2.5 w-2.5 rounded-full dark:rounded-md transition-all ${
-                i === index
-                  ? "bg-[#e6d5c8] dark:bg-[#e5e5e5] ring-4 ring-[#e6d5c8]/30 dark:ring-[#e5e5e5]/30"
-                  : "bg-white/70 dark:bg-[#555] ring-4 ring-white/20 dark:ring-[#555]/20 hover:ring-white/40 dark:hover:ring-[#555]/40"
-              }`}
-            />
-          ))}
+        {/* Controles */}
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <button onClick={takeControl(prev)} aria-label="Anterior" className={arrowClass}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <div className="flex items-center">
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Ir al testimonio ${i + 1}`}
+                aria-current={i === index}
+                onClick={takeControl(() => goTo(i))}
+                className="grid h-8 place-items-center px-1.5"
+              >
+                <span
+                  className={`block h-2.5 rounded-full transition-all duration-300 ${
+                    i === index ? "w-7 bg-white dark:bg-[#e5e5e5]" : "w-2.5 bg-white/45 hover:bg-white/70 dark:bg-[#555]"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+
+          <button onClick={takeControl(next)} aria-label="Siguiente" className={arrowClass}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>

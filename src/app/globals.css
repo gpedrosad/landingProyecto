@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
+/*
+ * El sitio siempre se muestra con los colores de la marca. Las variantes
+ * `dark:` solo aplican bajo una clase `.dark`, que no se usa, así que el modo
+ * oscuro del sistema no las activa.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -10,43 +18,68 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-lora), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1a1a;
-    --foreground: #e5e5e5;
+/* CTA de WhatsApp: halo y movimiento del ícono, una vez cada 5s */
+@theme {
+  --animate-cta-halo: cta-halo 5s ease-out infinite;
+  --animate-cta-wiggle: cta-wiggle 5s ease-in-out infinite;
+
+  @keyframes cta-halo {
+    0% {
+      box-shadow: 0 0 0 0 rgb(37 211 102 / 0.5);
+    }
+    25%,
+    100% {
+      box-shadow: 0 0 0 14px rgb(37 211 102 / 0);
+    }
   }
-  
-  /* Estilos simples para modo oscuro */
-  body {
-    background: #1a1a1a !important;
-    color: #e5e5e5 !important;
+
+  @keyframes cta-wiggle {
+    0%,
+    10%,
+    100% {
+      transform: rotate(0deg);
+    }
+    2.5% {
+      transform: rotate(-14deg);
+    }
+    5% {
+      transform: rotate(10deg);
+    }
+    7.5% {
+      transform: rotate(-5deg);
+    }
   }
-  
-  /* Simplificar elementos en modo oscuro */
-  * {
-    border-color: #333 !important;
+}
+
+/* Títulos en serif (Lora) para un tono más cálido */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-lora), Georgia, serif;
   }
-  
-  /* Reducir sombras y efectos en modo oscuro */
-  .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
-    box-shadow: none !important;
-  }
-  
-  /* Simplificar gradientes en modo oscuro */
-  .bg-gradient-to-b, .bg-gradient-to-t, .bg-gradient-to-br {
-    background: #2a2a2a !important;
-  }
-  
-  /* Simplificar bordes redondeados en modo oscuro */
-  .rounded-2xl, .rounded-3xl {
-    border-radius: 8px !important;
+}
+
+/* Transiciones entre secciones: los degradados vienen de sectionFade() */
+.section-fade {
+  --fade-size: 180px;
+  background-image: var(--fade-top, none), var(--fade-bottom, none);
+  background-position: top, bottom;
+  background-size: 100% var(--fade-size);
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) {
+  .section-fade {
+    --fade-size: 220px;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }

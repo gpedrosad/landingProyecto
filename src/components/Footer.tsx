@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Instagram } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import React from "react";
+import { sectionFade } from "./sectionFade";
 
 type FooterProps = {
   logoSrc?: string;
@@ -77,11 +78,10 @@ const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="relative bg-[#6571ac] dark:bg-[#2a2a2a] text-white dark:text-[#e5e5e5] pt-28 pb-16">
-      {/* Degradado superior hacia blanco (más alto, detrás del contenido) */}
-      <div className="absolute top-0 left-0 w-full h-0 bg-gradient-to-t from-[#6571ac] to-white dark:bg-[#2a2a2a] pointer-events-none z-0" />
-
-      {/* Contenido del footer (por encima del degradado) */}
+    <footer
+      className="section-fade relative bg-[#676EAB] dark:bg-[#2a2a2a] text-white dark:text-[#e5e5e5] pt-28 pb-28"
+      style={sectionFade("#676EAB", { top: { color: "#215d4c", space: "oklch" } })}
+    >
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         {logoSrc ? (
           <div className="mx-auto mb-6 h-20 w-44 relative">
